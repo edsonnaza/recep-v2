@@ -30,6 +30,8 @@ class TablaPermisoRolSeeder extends Seeder
             array('rol_id' => '1', 'permiso_id' => '13'),
             array('rol_id' => '1', 'permiso_id' => '14'),
             array('rol_id' => '1', 'permiso_id' => '15'),
+             array('rol_id' => '1', 'permiso_id' => '16'),
+               // array('rol_id' => '1', 'permiso_id' => '17'),
         ];
         DB::table('permiso_rol')->insert($permisoRols);
     }

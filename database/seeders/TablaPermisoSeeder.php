@@ -31,6 +31,8 @@ class TablaPermisoSeeder extends Seeder
             array('id' => '13', 'nombre' => 'Crear Profesion', 'slug' => 'crear-profesion', 'created_at' => $now, 'updated_at' => $now),
             array('id' => '14', 'nombre' => 'Listar tipo DNI', 'slug' => 'listar-tipo-dni', 'created_at' => $now, 'updated_at' => $now),
             array('id' => '15', 'nombre' => 'Crear tipo DNI', 'slug' => 'crear-tipodni', 'created_at' => $now, 'updated_at' => $now),
+             array('id' => '16', 'nombre' => 'Listar Departamentos', 'slug' => 'listar-departamentos', 'created_at' => $now, 'updated_at' => $now),
+
         ];
         DB::table('permiso')->insert($permisos);
     }

@@ -19,7 +19,7 @@ class TablaSedeSeeder extends Seeder
             'email' => 'edsonnaza@gmail.com',
             'ruc' => '3375209-5',
             'telefono' =>'0982692225',
-            'foto_sede'=> '6nHJtYcxcJtTfSpV1aAi.jpg'
+            'foto_sede'=> 'wmkZcVBXPrqVEWYmmBpe.jpg'
         ]);
     }
 }

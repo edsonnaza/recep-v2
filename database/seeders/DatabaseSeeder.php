@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
             'genero',
            // 'medicos',
           //  'medidas',
-            'unidad',
-          //  'categoriapadre',
+          //  'unidad',
+            'departamentos',
           //  'categoriahijos',
          //   'productos',
         //    'existencias',
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TablaTipoDNISeeder::class);
         //$this->call(TablaIvaSeeder::class);
         //$this->call(TablaMedidasSeeder::class);
-        $this->call(TablaAlmacenesSeeder::class);
+       // $this->call(TablaAlmacenesSeeder::class);
 
         //$this->call(TablaTipoDocumentoSeeder::class);
         $this->call(TablaTipoPersonaSeeder::class);
@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsuarioAdministradorSeeder::class);        
         $this->call(TablaPermisoRolSeeder::class);
     
-        //$this->call(TablaCategoriaPadreSeeder::class);
+        $this->call(TablaDepartamentosSeeder::class);
         //$this->call(TablaCategoriaHijosSeeder::class);
         //$this->call(TablaProductosSeeder::class);
         //$this->call(TablaProductoExistenciaSeeder::class);

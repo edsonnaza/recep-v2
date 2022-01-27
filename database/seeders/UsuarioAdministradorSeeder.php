@@ -33,7 +33,7 @@ class UsuarioAdministradorSeeder extends Seeder
             'id_seguro' =>'1',
             'genero' =>'H',
             'id_nacionalidad'=>'9',
-            'foto_persona' =>'PXNfH5ct6xu0oClFh2p4.jpg'
+            'foto_persona' =>'Labiaik9xMqGs8YfuG5D.jpg'
         ]);
       //  DB::table('personas')->insert($persona);
 
@@ -42,7 +42,7 @@ class UsuarioAdministradorSeeder extends Seeder
             'nombre' => 'Administrador',
             'email' => 'edsonnaza@gmail.com',
             'password' => 'pass123',
-            'foto' =>'PXNfH5ct6xu0oClFh2p4.jpg',
+            'foto' =>'Labiaik9xMqGs8YfuG5D.jpg',
             'sede_id' =>'1',
             'id_persona' =>'1'
         ]);

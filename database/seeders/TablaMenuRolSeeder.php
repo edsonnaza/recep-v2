@@ -35,7 +35,7 @@ class TablaMenuRolSeeder extends Seeder
             array('rol_id' => '1', 'menu_id' => '13'),
             array('rol_id' => '1', 'menu_id' => '16'),
             array('rol_id' => '1', 'menu_id' => '15'),
-           // array('rol_id' => '1', 'menu_id' => '17'),
+            array('rol_id' => '1', 'menu_id' => '17'),
            // array('rol_id' => '1', 'menu_id' => '20'),
            // array('rol_id' => '1', 'menu_id' => '21'),
            //array('rol_id' => '1', 'menu_id' => '22'),

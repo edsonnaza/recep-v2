@@ -24,8 +24,8 @@ class CrearTablaUsuario extends Migration
             $table->foreign('sede_id', 'sede_id_fk')->references('id')->on('sedes')->onDelete('restrict')->onUpdate('restrict');
             $table->unsignedBigInteger('id_persona');
             $table->foreign('id_persona', 'fk_id_persona')->references('id')->on('personas')->onDelete('restrict')->onUpdate('restrict');
-            $table->unsignedBigInteger('id_medico')->nullable();      
-            $table->foreign('id_medico', 'id_medicofk')->references('id')->on('medicos')->onDelete('restrict')->onUpdate('restrict');
+          //  $table->unsignedBigInteger('id_medico')->nullable();      
+          //  $table->foreign('id_medico', 'id_medicofk')->references('id')->on('medicos')->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';
