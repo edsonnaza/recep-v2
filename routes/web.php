@@ -16,25 +16,17 @@ use App\Http\Controllers\Admin\PermisoRolController;
 use App\Http\Controllers\Admin\SedeController;
 use App\Http\Controllers\CategoriaPadreController;
 use App\Http\Controllers\CategoriaHijosController;
-use App\Http\Controllers\PacienteController;
-use App\Http\Controllers\LibroController;
-use App\Http\Controllers\LibroPrestamoController;
 use App\Http\Controllers\SeguroController;
 use App\Http\Controllers\TipoPersonaController;
 use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\EstadoCivilController;
 use App\Http\Controllers\ProfesionController;
 use App\Http\Controllers\TipoDNIController;
-use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\PersonaController;
-use App\Http\Controllers\UnidadController;
-use App\Http\Controllers\MedidasBasicasController;
 use App\Http\Controllers\ProductosController;
-use App\Http\Controllers\ArticuloController;
-use App\Http\Controllers\ComprasFIController;
-use App\Http\Controllers\TareasController;
-use App\Http\Controllers\ProveedorController;
-use App\Http\Controllers\IngresarExamenController;
+use App\Http\Controllers\DepartamentosController;
+ 
+
 
 
 /*
@@ -129,16 +121,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
  
 Route::group(['middleware' => ['auth']], function () {
     //
-
-
-    
-/** RUTAS DE INGRESAR EXAMEN */
-Route::get('ingresarexamen', [IngresarExamenController::class, 'index'])->name('ingresarexamen');
-Route::get('ingresarexamen/crear', [IngresarExamenController::class, 'crear'])->name('crear_ingresarexamen');
-Route::post('ingresarexamen', [IngresarExamenController::class, 'guardar'])->name('guardar_ingresarexamen');
-Route::get('ingresarexamen/{id}/editar', [IngresarExamenController::class, 'editar'])->name('editar_ingresarexamen');
-Route::put('ingresarexamen/{id}', [IngresarExamenController::class, 'actualizar'])->name('actualizar_ingresarexamen');
-Route::delete('ingresarexamen/{id}', [IngresarExamenController::class, 'eliminar'])->name('eliminar_ingresarexamen');
+   
+/** RUTAS DE DEPARTAMENTOS */
+Route::get('departamentos', [DepartamentosController::class, 'index'])->name('departamentos');
+Route::get('departamentos/crear', [DepartamentosController::class, 'crear'])->name('crear_departamento');
+Route::post('departamentos', [DepartamentosController::class, 'guardar'])->name('guardar_departamento');
+Route::get('departamentos/{id}/editar', [DepartamentosController::class, 'editar'])->name('editar_departamento');
+Route::put('departamentos/{id}', [DepartamentosController::class, 'actualizar'])->name('actualizar_departamento');
+Route::delete('departamentos/{id}', [DepartamentosController::class, 'eliminar'])->name('eliminar_departamento');
 
 /** RUTAS DE CATASTRO DE CATEGORIAS PADRE */
 Route::get('categoriapadre', [CategoriaPadreController::class,'index'])->name('categoriapadre');
