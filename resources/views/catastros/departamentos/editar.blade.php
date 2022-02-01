@@ -12,7 +12,7 @@
     <div class="col-lg-12">
         @include('includes.form-error')
         @include('includes.mensaje')
-        <div class="card card-danger">
+        <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Editar Departamento: {{$data->nombre}}</h3>
                 <div class="card-tools">

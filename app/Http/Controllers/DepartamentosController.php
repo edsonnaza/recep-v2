@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ValidarDepartamento;
 use App\Models\Departamento;
- 
-
+use Illuminate\Http\Request;
 
 class DepartamentosController extends Controller
 {
-     public function index()
+    public function index()
     {can('listar-departamentos');
 
         $datas = Departamento::All();
-       // $sedes= Sede::All();
+        // $sedes= Sede::All();
 
         return view('catastros.departamentos.index', compact('datas'));
     }
@@ -39,13 +38,8 @@ class DepartamentosController extends Controller
     {
         $departamento = Departamento::create($request->all());
 
-
-     
-   
-    return redirect('departamentos/crear')->with('mensaje', 'El registro se creó correctamente');
+        return redirect('departamentos/crear')->with('mensaje', 'El registro se creó correctamente');
     }
-
-     
 
     /**
      * Show the form for editing the specified resource.
@@ -66,9 +60,9 @@ class DepartamentosController extends Controller
      * @param  \App\Departamento  $tipoPersona
      * @return \Illuminate\Http\Response
      */
-    public function actualizar(ValidarDepartamento $request,$id)
-    { 
-        
+    public function actualizar(ValidarDepartamento $request, $id)
+    {
+
         Departamento::findOrFail($id)->update($request->all());
         return redirect('departamentos')->with('mensaje', 'Registro actualizado con éxito');
     }
@@ -79,17 +73,17 @@ class DepartamentosController extends Controller
      * @param  \App\Departamento  $tipoPersona
      * @return \Illuminate\Http\Response
      */
-    public function eliminar(Request $request,$id)
+    public function eliminar(Request $request, $id)
     {
-        
-       //  dd($id);
-       if ($request->ajax()) {
-        $query = Departamento::findOrFail($id);
-        $query->delete();
-        return response()->json(['mensaje' => 'ok']);
-     } else {
-        abort(404);
-    }
+
+        //  dd($id);
+        if ($request->ajax()) {
+            $query = Departamento::findOrFail($id);
+            $query->delete();
+            return response()->json(['mensaje' => 'ok']);
+        } else {
+            abort(404);
+        }
     }
 
 }

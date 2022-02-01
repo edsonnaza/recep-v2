@@ -12,7 +12,7 @@
     <div class="col-lg-12">
         @include('includes.form-error')
         @include('includes.mensaje')
-        <div class="card card-danger">
+        <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Crear Departamentos</h3>
                 <div class="card-tools">
@@ -24,7 +24,7 @@
             <form action="{{route('guardar_departamento')}}" id="form-general" class="form-horizontal form--label-right" method="POST" autocomplete="off">
                 @csrf
                 <div class="card-body">
-                    @include('catastros.departamento.form')
+                    @include('catastros.departamentos.form')
                 </div>
                 <div class="card-footer">
                     <div class="row">
