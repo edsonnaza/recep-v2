@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Seguridad\Usuario;
 use App\Models\Persona;
 use App\Models\ClasificacionPersona;
+use App\Models\Colaborador;
 
 class UsuarioAdministradorSeeder extends Seeder
 {
@@ -48,12 +49,17 @@ class UsuarioAdministradorSeeder extends Seeder
         ]);
 
         $clasificacion_persona = ClasificacionPersona::create([
-            'id_clasificacion' => '5',
+            'id_clasificacion' => '1',
             'id_persona' => '1'
              
         ]);
         $clasificacion_persona = ClasificacionPersona::create([
-    'id_clasificacion' => '1',
+    'id_clasificacion' => '2',
+    'id_persona' => '1',
+
+]);
+$colaboradores = Colaborador::create([
+    'id_departamento' => '1',
     'id_persona' => '1',
 
 ]);

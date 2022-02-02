@@ -20,6 +20,9 @@ use App\Models\EstadoCivil;
 use App\Models\Profesion;
 use App\Models\Genero;
 use App\Models\Especialidad;
+use App\Models\Colaborador;
+use App\Models\Departamento;
+
 
 class PersonaController extends Controller
 {
@@ -31,8 +34,10 @@ class PersonaController extends Controller
     public function index()
     {
         $datas = Persona::All();//with('personas:id,paciente_nombre,nro_mobil,email,nro_telefono,direccion')->orderBy('id')->get();
-        // $sedes= Sede::All();
-         return view('catastros.persona.index', compact('datas'));
+        $departamentos=Departamento::All();
+        $colaboradores=Colaborador::All();
+
+         return view('catastros.persona.index', compact('datas','departamentos','colaboradores'));
     }
 
     /**
@@ -55,11 +60,11 @@ class PersonaController extends Controller
         $especialidades = Especialidad::All();
 
         $clasificacion = Clasificacion::orderBy('id')->pluck('nombre_clasificacion', 'id')->toArray();
+        $departamentos=Departamento::orderBy('id')->pluck('dpto_nombre','id')->toArray();
 
 
 
-
-         return view('catastros.persona.crear', compact('tipodni','tipopersona','seguro','estadocivil','profesion','clasificacion','nacionalidad','generos','especialidades'));
+         return view('catastros.persona.crear', compact('departamentos','tipodni','tipopersona','seguro','estadocivil','profesion','clasificacion','nacionalidad','generos','especialidades'));
 
     }
 
@@ -138,6 +143,7 @@ class PersonaController extends Controller
       
         
          $data=Persona::with('Clasificacion')->findOrFail($id);
+         $dataDpto=Persona::with('DepartamentosColaborador')->findOrFail($id);
          $foto_persona=$data->foto_persona;
          $tipodni= TipoDni::All();
          $tipopersona=TipoPersona::All();
@@ -146,13 +152,14 @@ class PersonaController extends Controller
          $profesion=Profesion::All();
         // $clasificacion=Clasificacion::All();
         $clasificacion = Clasificacion::orderBy('id')->pluck('nombre_clasificacion', 'id')->toArray();
+        $departamentos=Departamento::orderBy('id')->pluck('dpto_nombre','id')->toArray();
         $especialidades = Especialidad::All();
 
         $nacionalidad=Nacionalidad::All();
          $generos=Genero::All();
          //dd($data);
          
-        return view('catastros.persona.editar', compact('data', 'tipodni','tipopersona','seguro','estadocivil','profesion','clasificacion','nacionalidad','generos','foto_persona','especialidades'));
+        return view('catastros.persona.editar', compact('departamentos','dataDpto','data', 'tipodni','tipopersona','seguro','estadocivil','profesion','clasificacion','nacionalidad','generos','foto_persona','especialidades'));
  
     }
 
@@ -216,7 +223,7 @@ class PersonaController extends Controller
 
         //dd($request->foto_persona);
         $persona->Clasificacion()->sync($request->id_clasificacion);
-
+        $persona->DepartamentosColaborador()->sync($request->id_departamento);
    
          return redirect('persona')->with('mensaje', 'Registro actualizado con éxito');
     }

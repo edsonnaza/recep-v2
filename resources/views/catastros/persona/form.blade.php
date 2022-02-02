@@ -11,6 +11,23 @@
         <input type="text" name="persona_apellido" id="persona_apellido" class="form-control" value="{{old('persona_apellido', $data->persona_apellido ?? '')}}" required/>
     </div>
 </div>
+
+    <div class="form-group row">
+    <label for="rol_id" class="col-lg-3 col-form-label requerido">Departamento</label>
+    <div class="col-lg-8">
+        <select name="id_departamento[]" id="id_departamento" class="form-control" multiple required>
+            <option value="">Seleccione departamento</option>
+            @foreach($departamentos as $id => $nombre)
+                <option
+                value="{{$id}}"
+                {{is_array(old('id_departamento')) ? (in_array($id, old('id_departamento')) ? 'selected' : '')  : (isset($dataDpto) ? ($dataDpto->DepartamentosColaborador->firstWhere('id', $id) ? 'selected' : '') : '')}}
+                >
+                {{$nombre}}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    </div>
  
   <div class="form-group row">
     <label for="ruc" class="col-lg-3 col-form-label ">Ruc</label>

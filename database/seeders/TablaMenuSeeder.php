@@ -35,7 +35,7 @@ class TablaMenuSeeder extends Seeder
             array('id' => '15', 'menu_id' => '8', 'nombre' => 'Tipo DNI', 'url' => 'tipodni', 'orden' => '7', 'icono' => 'fa-address-card', 'created_at' => $now, 'updated_at' => $now),
             //array('id' => '18', 'menu_id' => '10', 'nombre' => 'Pacientes', 'url' => 'paciente', 'orden' => '2', 'icono' => 'fa fa-users', 'created_at' => $now, 'updated_at' => $now),
             //array('id' => '19', 'menu_id' => '10', 'nombre' => 'Médicos', 'url' => 'medico', 'orden' => '5', 'icono' => 'fa fa-user-md', 'created_at' => $now, 'updated_at' => $now),
-            array('id' => '16', 'menu_id' => '8', 'nombre' => 'Catastro de Persona', 'url' => 'persona', 'orden' => '1', 'icono' => 'fa fa-users', 'created_at' => $now, 'updated_at' => $now),
+            array('id' => '16', 'menu_id' => '8', 'nombre' => 'Colaboradores', 'url' => 'persona', 'orden' => '1', 'icono' => 'fa fa-users', 'created_at' => $now, 'updated_at' => $now),
             array('id' => '17', 'menu_id' => '8', 'nombre' => 'Departamentos', 'url' => 'departamentos', 'orden' => '9', 'icono' => 'fa fa-building', 'created_at' => $now, 'updated_at' => $now),
            // array('id' => '17', 'menu_id' => '8', 'nombre' => 'Almacenes', 'url' => 'unidad', 'orden' => '8', 'icono' => 'fa fa-cart-plus', 'created_at' => $now, 'updated_at' => $now),
             //array('id' => '18', 'menu_id' => '8', 'nombre' => 'Categorias Gral', 'url' => 'categoriapadre', 'orden' => '9', 'icono' => 'fa fa-list-alt', 'created_at' => $now, 'updated_at' => $now),

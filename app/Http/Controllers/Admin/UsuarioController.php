@@ -9,7 +9,7 @@ use App\Models\Admin\Rol;
 use App\Http\Requests\ValidacionUsuario;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin\Sede;
-use App\Models\Medico;
+ 
 use App\Models\Persona;
 
 class UsuarioController extends Controller
@@ -30,11 +30,11 @@ class UsuarioController extends Controller
         $rols = Rol::orderBy('id')->pluck('nombre', 'id')->toArray();
        // $sedes=Sede::orderBy('id')->pluck('nombre_sede', 'id')->toArray();
        $sedes= Sede::All();
-       $medicos=Medico::All(); 
+        
        $personas=Persona::whereHas('ClasificacionUsuario')->get();
 
 
-        return view('admin.usuario.crear', compact('rols','sedes','medicos','personas'));
+        return view('admin.usuario.crear', compact('rols','sedes', 'personas'));
     }
 
 
@@ -76,12 +76,12 @@ class UsuarioController extends Controller
         $data = Usuario::with('roles')->findOrFail($id);
         $sedes=Sede::orderBy('id')->pluck('nombre_sede', 'id')->toArray();
         $sedes= Sede::All();
-        $medicos=Medico::All();
+         
         $personas = Persona::All();
 
        // $persona = Persona::findOrFail($data->id_usuario);
         
-        return view('admin.usuario.editar', compact('data', 'rols','sedes','medicos','personas'));
+        return view('admin.usuario.editar', compact('data', 'rols','sedes', 'personas'));
     }
 
 

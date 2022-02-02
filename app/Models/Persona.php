@@ -10,6 +10,7 @@ use App\Models\TipoDNI;
 use App\Models\Medico;
 use App\Models\ClasificacionPersona;
 use App\Models\Clasificacion;
+use App\Models\Departamento;
 
 class Persona extends Model
 {
@@ -41,24 +42,16 @@ class Persona extends Model
         return $this->belongsToMany(Clasificacion::class, 'clasificacion_persona','id_persona','id_clasificacion');
     }
 
-     public function ClasificacionPaciente()
-    {
-        return $this->belongsToMany(Clasificacion::class, 'clasificacion_persona','id_persona','id_clasificacion')->wherePivot('id_clasificacion',1);
-    }
-
-      public function ClasificacionMedico()
-    {
-        return $this->belongsToMany(Clasificacion::class, 'clasificacion_persona','id_persona','id_clasificacion')->wherePivot('id_clasificacion',2);
-    }
+ 
     
       public function ClasificacionProveedor()
     {
         return $this->belongsToMany(Clasificacion::class, 'clasificacion_persona','id_persona','id_clasificacion')->wherePivot('id_clasificacion',4);
     }
 
-     public function ClasificacionUsuario()
+     public function DepartamentosColaborador()
     {
-        return $this->belongsToMany(Clasificacion::class, 'clasificacion_persona','id_persona','id_clasificacion')->wherePivot('id_clasificacion',5);
+        return $this->belongsToMany(Departamento::class, 'colaboradores','id_persona','id_departamento');
     }
 
 

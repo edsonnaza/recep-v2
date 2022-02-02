@@ -26,22 +26,22 @@ class DatabaseSeeder extends Seeder
             'usuario_rol',
             'seguros',
             'sedes',
-            'tipodni',
+           
             'tipo_persona',
             'estadocivil',
             'profesion',
             'especialidad',
-            'personas',
+            'tipodni',
             'clasificacion',
             'clasificacion_persona',
             'nacionalidad',
-            'genero',
-           // 'medicos',
+             'personas','genero',
+            'colaboradores',
           //  'medidas',
           //  'unidad',
             'departamentos',
-          //  'categoriahijos',
-         //   'productos',
+            'motivos',
+            'contactos_entidades',
         //    'existencias',
          //   'precio_productos',
          //   'iva',
@@ -54,6 +54,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TablaSegurosSeeder::class);
         $this->call(TablaGeneroSeeder::class);
         $this->call(TablaTipoDNISeeder::class);
+        $this->call(TablaDepartamentosSeeder::class);
+
         //$this->call(TablaIvaSeeder::class);
         //$this->call(TablaMedidasSeeder::class);
        // $this->call(TablaAlmacenesSeeder::class);
@@ -68,12 +70,13 @@ class DatabaseSeeder extends Seeder
         $this->call(TablaRolSeeder::class);
         $this->call(TablaMenuSeeder::class);
         $this->call(TablaMenuRolSeeder::class);
-        $this->call(TablaPermisoSeeder::class);       
+        $this->call(TablaPermisoSeeder::class);   
+            
         $this->call(UsuarioAdministradorSeeder::class);        
         $this->call(TablaPermisoRolSeeder::class);
     
-        $this->call(TablaDepartamentosSeeder::class);
-        //$this->call(TablaCategoriaHijosSeeder::class);
+       
+        $this->call(TablaMotivosSeeder::class);
         //$this->call(TablaProductosSeeder::class);
         //$this->call(TablaProductoExistenciaSeeder::class);
         //$this->call(TablaPrecioProductosSeeder::class);
@@ -90,4 +93,3 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }
 }
-

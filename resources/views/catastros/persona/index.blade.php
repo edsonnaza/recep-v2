@@ -34,7 +34,7 @@
                             <th>Nombre </th>
                             <th>Documento </th>
                             <th>Nro. Celular </th>
-                            <th>Nro. Teléfono </th>
+                            <th>Departamentos </th>
                             <th>E-mail </th>
                             <th>Foto</th>
                          
@@ -50,7 +50,22 @@
                                 <td>{{$data->full_name_persona}}</td>
                                 <td>{{$data->numero_dni}}</td>
                                 <td>{{$data->nro_mobil}}</td>
-                                <td>{{$data->nro_telefono}}</td>
+                                <td>
+                                        @foreach ($colaboradores as $colaborador)
+
+                                            @foreach ($departamentos as $departamento )
+                                                    @if ($colaborador->id_persona==$data->id and $colaborador->id_departamento==$departamento->id)
+
+                                                            <li>  {{$loop->last ? $departamento->dpto_nombre : $departamento->dpto_nombre }} </li><br>
+                                                        
+                                                    @endif
+                                                
+                                            @endforeach
+                                                
+                                        @endforeach 
+                                                                              
+                                
+                                </td>
                                
                                  <td>{{$data->email}}</td>
                                     <td class="text-center"><img src="{{isset($data->foto_persona) ? Storage::url("imagenes/personas/" . $data->foto_persona) :"http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=Foto+Paciente"}}"   style="width:50px" ></td>
