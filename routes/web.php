@@ -25,6 +25,12 @@ use App\Http\Controllers\TipoDNIController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\DepartamentosController;
+use App\Http\Controllers\MotivoController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\UnidadController;
+use App\Http\Controllers\MedidasBasicasController;
+
+
  
 
 
@@ -122,6 +128,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 Route::group(['middleware' => ['auth']], function () {
     //
    
+
+/** RUTAS DE MOTIVOS */
+Route::get('motivos', [MotivoController::class, 'index'])->name('motivos');
+Route::get('motivo/crear', [MotivoController::class, 'crear'])->name('crear_motivo');
+Route::post('motivo', [MotivoController::class, 'guardar'])->name('guardar_motivo');
+Route::get('motivo/{id}/editar', [MotivoController::class, 'editar'])->name('editar_motivo');
+Route::put('motivo/{id}', [MotivoController::class, 'actualizar'])->name('actualizar_motivo');
+Route::delete('motivo/{id}', [MotivoController::class, 'eliminar'])->name('eliminar_motivo');
+
+
+    
 /** RUTAS DE DEPARTAMENTOS */
 Route::get('departamentos', [DepartamentosController::class, 'index'])->name('departamentos');
 Route::get('departamentos/crear', [DepartamentosController::class, 'crear'])->name('crear_departamento');
@@ -151,15 +168,15 @@ Route::put('categoriahijos/{id}', [CategoriaHijosController::class,'actualizar']
 
 
 
-/** RUTAS DE CATASTRO DE PACIENTES */
+/** RUTAS DE CATASTRO DE PACIENTES 
 Route::get('paciente', [PacienteController::class,'index'])->name('paciente');
 Route::get('paciente/crear', [PacienteController::class,'crear'])->name('crear_paciente');
 Route::post('paciente', [PacienteController::class,'guardar'])->name('guardar_paciente');
 Route::get('paciente/{id}/editar', [PacienteController::class,'editar'])->name('editar_paciente');
 Route::put('paciente/{id}', [PacienteController::class,'actualizar'])->name('actualizar_paciente');
-Route::delete('paciente/{id}', [PacienteController::class,'eliminar'])->name('eliminar_paciente');
+Route::delete('paciente/{id}', [PacienteController::class,'eliminar'])->name('eliminar_paciente');*/
 
-      
+    /*  
 Route::get('libro', [LibroController::class,'index'])->name('libro') ;
 Route::get('libro/crear', [LibroController::class,'crear'])->name('crear_libro');
 Route::post('libro', [LibroController::class,'guardar'])->name('guardar_libro');
@@ -170,21 +187,14 @@ Route::delete('libro/{id}', [LibroController::class,'eliminar'])->name('eliminar
 /**
  * Rutas Libro Prestamo
  */
-Route::get('libro-prestamo', [LibroPrestamoController::class,'index'])->name('libro-prestamo');
+/*Route::get('libro-prestamo', [LibroPrestamoController::class,'index'])->name('libro-prestamo');
 Route::get('libro-prestamo/crear', [LibroPrestamoController::class,'crear'])->name('libro-prestamo.crear');
 Route::post('libro-prestamo', [LibroPrestamoController::class,'guardar'])->name('libro-prestamo.guardar');
-Route::put('libro-prestamo/{libro}', [LibroPrestamoController::class,'devolucion'])->name('libro-prestamo.devolver');
+Route::put('libro-prestamo/{libro}', [LibroPrestamoController::class,'devolucion'])->name('libro-prestamo.devolver');*/
 /**
  * Rutas Catastro Seguros
  */
-
-/*Route::get('seguro', 'SeguroController@index')->name('seguro')->middleware('auth');
-Route::get('seguro/crear', 'SeguroController@crear')->name('crear_seguro')->middleware('auth');
-Route::post('seguro', 'SeguroController@guardar')->name('guardar_seguro')->middleware('auth');
-Route::post('seguro/{seguro}', 'SeguroController@ver')->name('ver_seguro')->middleware('auth');
-Route::get('seguro/{id}/editar', 'SeguroController@editar')->name('editar_seguro')->middleware('auth');
-Route::put('seguro/{id}', 'SeguroController@actualizar')->name('actualizar_seguro')->middleware('auth');
-Route::delete('seguro/{id}', 'SeguroController@eliminar')->name('eliminar_seguro')->middleware('auth');*/
+ 
 
  /*RUTAS DE CASTASTRO DE SEGUROS*/
  Route::get('seguro', [SeguroController::class,'index'])->name('seguro');
@@ -239,18 +249,18 @@ Route::delete('tipodni/{id}', [TipoDNIController::class,'eliminar'])->name('elim
 // Route::post('search', 'PacienteController@BuscarPersona')->name('buscar_persona')->middleware('auth');
 //Route::post('/employees/getEmployees/', 'EmployeesController@getEmployees')->name('employees.getEmployees');
 
-
+/*
  Route::get('/search', [PacienteController::class,'indexsearch']);
- Route::post('search/fetch', [PacienteController::class,'BuscarPersona'])->name('autocomplete.fetch');
+ Route::post('search/fetch', [PacienteController::class,'BuscarPersona'])->name('autocomplete.fetch');*/
 
   
  /** RUTAS DE CATASTRO DE MEDICOS */    
- Route::get('medico', [MedicoController::class,'index'])->name('medico');
+ /*Route::get('medico', [MedicoController::class,'index'])->name('medico');
  Route::get('medico/crear', [MedicoController::class,'crear'])->name('crear_medico');
  Route::post('medico', [MedicoController::class,'guardar'])->name('guardar_medico');
  Route::get('medico/{id}/editar', [MedicoController::class,'editar'])->name('editar_medico');
  Route::put('medico/{id}', [MedicoController::class,'actualizar'])->name('actualizar_medico');
- Route::delete('medico/{id}', [MedicoController::class,'eliminar'])->name('eliminar_medico');
+ Route::delete('medico/{id}', [MedicoController::class,'eliminar'])->name('eliminar_medico');*/
  
 
  /** RUTAS DE CATASTRO DE PERSONAS */    
@@ -291,14 +301,14 @@ Route::delete('medidas_basicas/{id}', [MedidasBasicasController::class,'eliminar
 
 
 /** RUTAS DE CATASTRO DE PRODUCTOS: CONSULTAS y SERVICIOS */
-Route::get('productos', [ProductosController::class,'index'])->name('productos');
+/*Route::get('productos', [ProductosController::class,'index'])->name('productos');
 Route::get('productos/crear', [ProductosController::class,'crear'])->name('crear_producto');
 Route::post('productos', [ProductosController::class,'guardar'])->name('guardar_producto');
 Route::get('productos/{id}/editar', [ProductosController::class,'editar'])->name('editar_producto');
 Route::put('productos/{id}', [ProductosController::class,'actualizar_producto'])->name('actualizar_producto');
 Route::delete('productos/{id}', [ProductosController::class,'eliminar_producto'])->name('eliminar_producto');
 //Route::get('categoriahijos/{id}', 'ProductosController@buscar_cathijos')->name('cargar_cathijos');
-Route::get('/gethijos/{id_categoriapadre}', [ProductosController::class,'buscar_cathijos'])->name('gethijos');
+Route::get('/gethijos/{id_categoriapadre}', [ProductosController::class,'buscar_cathijos'])->name('gethijos');*/
 //Route::get('/productos/{id_categoriapadre}', 'ProductosController@buscar_cathijos')->name('gethijos');
 
 
@@ -306,7 +316,7 @@ Route::get('/gethijos/{id_categoriapadre}', [ProductosController::class,'buscar_
 
 /** RUTAS DE CATASTRO DE PRECIOS DE PRODUCTOS POR SEGUROS: CONSULTAS y SERVICIOS */
 
-Route::get('precioproductos/{id}', [ProductosController::class,'editar_precioproducto'])->name('editar_precioproducto');
+/*Route::get('precioproductos/{id}', [ProductosController::class,'editar_precioproducto'])->name('editar_precioproducto');
 //Route::delete('precioproductos/{id}', [ProductosController::class,'@eliminar_precioproducto')->name('eliminar_precioproducto');
 Route::put('precioproductos/{id}', [ProductosController::class,'actualizar_precioproducto'])->name('actualizar_precioproducto');
 //Route::get('precioproductos/crear', [ProductosController@crear_precioproducto'])->name('crear_precioproducto');
@@ -315,16 +325,16 @@ Route::post('precioproductos/{id}', [ProductosController::class,'guardar_nuevopr
 Route::delete('precioproductos/{id}', [ProductosController::class,'eliminar_precioporseguro'])->name('eliminar_precioporseguro');
 
 /** RUTAS DE CATASTRO DE ARTICULOS PRODUCTOS: DESCARTABLES y MEDICAMENTOS POR UNIDAD */
-Route::get('articulos', [ArticuloController::class,'index'])->name('articulos');
+/*Route::get('articulos', [ArticuloController::class,'index'])->name('articulos');
 Route::get('articulos/crear', [ArticuloController::class,'crear'])->name('crear_articulo');
 Route::post('articulos', [ArticuloController::class,'guardar'])->name('guardar_articulo');
 Route::get('articulos/{id}', [ArticuloController::class,'editar'])->name('editar_articulo');
 Route::put('articulos/{id}', [ArticuloController::class,'actualizar'])->name('actualizar_articulo');
-Route::delete('articulos/{id}', [ArticuloController::class,'eliminar'])->name('eliminar_articulo');
+Route::delete('articulos/{id}', [ArticuloController::class,'eliminar'])->name('eliminar_articulo');*/
 
 
 /** RUTAS DE COMPRAS PARA FARMACIA INTERNA*/
-Route::get('comprasfi', [ComprasFIController::class,'index'])->name('comprasfi');
+/*Route::get('comprasfi', [ComprasFIController::class,'index'])->name('comprasfi');
 Route::get('comprasfi/crear', [ComprasFIController::class,'crear'])->name('crear_comprasfi');
 Route::post('comprasfi', [ComprasFIController::class,'guardar'])->name('guardar_comprasfi');
 Route::get('comprasfi/{id}/editar', [ComprasFIController::class,'editar'])->name('editar_comprasfi');
@@ -341,7 +351,7 @@ Route::get('vue',[ComprasFIController::class,'vueForm'])->name('vue.form');
 
 
 Route::get('tareas', [TareasController::class,'index'])->name('tareas');
-Route::get('tasks', [TareasController::class, 'datos']);
+Route::get('tasks', [TareasController::class, 'datos']);*/
 
 
 

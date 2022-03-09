@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Productos;
 use App\Models\ComprasFIDET;
 use App\Models\ComprasFI;
+use App\Models\Motivo;
 
  
 
@@ -23,6 +24,29 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('api')->group(function () {
+    //Route::resource('motivo', App\Http\Controllers\MotivoController::class);
+   
+
+        
+
+Route::get('/motivos', function (Request $request) {
+    $motivos = Motivo::all(['id', 'nombre_motivo']);
+    return response()->json($motivos);
+
+});
+
+
+        
+   
+
+
+
+});
+
+
+
+/*
 
 Route::get('/search',function(Request $request){
  $query=$request->search;
@@ -44,4 +68,4 @@ Route::get('/comprasficabdet',function(Request $request){
  $data = ComprasFI::whereHas('Productos')->get();
  return response()->json($data);
 });
-//Route::resource('comprasfi', 'TaskController', ['except' => 'show', 'create', 'edit']);
+Route::resource('comprasfi', 'TaskController', ['except' => 'show', 'create', 'edit']);*/
