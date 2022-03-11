@@ -1,67 +1,78 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <title>Laravel Autocomplete using Jquery</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style type="text/css">
-   .box{
-    width:600px;
-    margin:0 auto;
-   }
-  </style>
- </head>
- <body>
-  <br />
-  <div class="container box">
-   <h3 align="center">Laravel Autocomplete using Jquery</h3><br />
-   
-   <div class="form-group">
-    <input type="text" name="category_name" id="category_name" class="form-control input-lg" placeholder="Enter Country Name" />
-    <div id="categoryList">
+  <head>
+    <title>Laravel Autocomplete Search With Jquery UI Example</title>
+
+    <!-- Meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha256-IdfIcUlaMBNtk4Hjt0Y6WMMZyMU0P9PN/pH+DFzKxbI=" crossorigin="anonymous" />
+
+    <!-- Script -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  </head>
+  <body>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-10 offset-1 text-center">
+          <div class="card">
+            <div class="card-header bg-success text-white">
+              <h3>Laravel Autocomplete Search With Jquery UI Example - Nicesnippets.com</h3>
+            </div>
+            <div class="card-body" style="height: 210px;">
+                <input type="text" id='employee_search' placeholder="--search--">
+            </div> 
+              <input type="text" id="employeeid">
+             <input type="text" id="activo">
+          </div>
+        </div>
+      </div>
     </div>
-   </div>
-   {{ csrf_field() }}
-  </div>
-  <div class="form-group">
-    <label for="">Codigo</label>
-    <input type="text" id="idproducto"
-      class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
-    <small id="helpId" class="form-text text-muted">Help text</small>
-  </div>
- </body>
-</html>
 
-<script>
-$(document).ready(function(){
- $('#category_name').keyup(function(){ 
-        var query = $(this).val();
-        if(query != '')
-        {
-         var _token = $('input[name="_token"]').val();
-         $.ajax({
-          url:"{{ url('product-list') }}",
-          method:"POST",
-          data:{query:query, _token:_token},
-          success:function(data){
-           $('#categoryList').fadeIn();  
-           $('#categoryList').html(data);
-          }
-         });
+    <script type="text/javascript">
+
+    // CSRF Token
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+
+      $( "#employee_search" ).autocomplete({
+        source: function( request, response ) {
+          // Fetch data
+          $.ajax({
+            url:"{{route('buscar_personas')}}",
+            type: 'get',
+            dataType: "json",
+            data: {
+               _token: CSRF_TOKEN,
+               search: request.term
+            },
+            success: function( data ) {
+               response( data );
+            }
+          });
+        },
+        select: function (event, ui) {
+           $('#employee_search').val(ui.item.label);
+           $('#employeeid').val(ui.item.value); 
+          $('#activo').val(ui.item.nro_mobil);
+           return false;
         }
-    });
-    $(document).on('click', 'li', function(e){  
-        $('#category_name').val($(this).text());  
-        $('#categoryList').fadeOut();  
-         var id = $(e.target).attr('id');
-        //alert(id);
-           $('#idproducto').val(id);  
+      });
 
-         
-    });  
-});
-</script>
+    });
+    </script>
+  </body>
+</html>	
+
+
 
 
 

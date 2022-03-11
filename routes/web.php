@@ -29,6 +29,8 @@ use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\MedidasBasicasController;
+use App\Http\Controllers\RecepController;
+use App\Http\Controllers\ComprasFIDETController;
 
 
  
@@ -49,6 +51,23 @@ use App\Http\Controllers\MedidasBasicasController;
 /*Route::get('/', function () {
     return view('seguridad.index');
 });*/
+
+
+/* RUTA PARA REGISTRAR LA RECEPCION*/
+/** RUTAS DE CATASTRO DE UNIDAD DE MEDIDAS BASICAS */
+Route::get('recep', [RecepController::class,'index'])->name('recep');
+Route::get('buscarpersonas', [PersonaController::class,'buscarPersonas'])->name('buscar_personas');
+Route::get('motivosdatos', [ComprasFIDETController::class,'motivosdatos'])->name('motivosdatos');
+Route::get('mot', [ComprasFIDETController::class,'index'])->name('mot');
+
+/*Route::get('medidas_basicas/crear', [MedidasBasicasController::class,'crear'])->name('crear_medidas_basicas');
+Route::post('medidas_basicas', [MedidasBasicasController::class,'guardar'])->name('guardar_medidas_basicas');
+Route::get('medidas_basicas/{id}/editar', [MedidasBasicasController::class,'editar'])->name('editar_medidas_basicas');
+Route::put('medidas_basicas/{id}', [MedidasBasicasController::class,'actualizar'])->name('actualizar_medidas_basicas');
+Route::delete('medidas_basicas/{id}', [MedidasBasicasController::class,'eliminar'])->name('eliminar_medidas_basicas');*/
+
+
+
 
 /*RUTAS PASSWORD RESET*/
 
@@ -358,3 +377,4 @@ Route::get('tasks', [TareasController::class, 'datos']);*/
 
 
 });
+

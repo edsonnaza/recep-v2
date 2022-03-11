@@ -127,9 +127,23 @@ class PersonaController extends Controller
      * @param  \App\Persona  $persona
      * @return \Illuminate\Http\Response
      */
-    public function mostrar(Persona $persona)
+    public function buscarPersonas(Request $request )
     {
-        //
+         $search = $request->search;
+
+      if($search == ''){
+         $autocomplate = Persona::orderby('full_name_persona','asc')->select('id','full_name_persona','nro_mobil')->limit(5)->get();
+      }else{
+         $autocomplate = Persona::orderby('full_name_persona','asc')->select('id','full_name_persona','nro_mobil')->where('full_name_persona', 'like', '%' .$search . '%')->limit(5)->get();
+      }
+
+      $response = array();
+      foreach($autocomplate as $autocomplate){
+         $response[] = array("value"=>$autocomplate->id,"label"=>$autocomplate->full_name_persona,"nro_mobil"=>$autocomplate->nro_mobil);
+      }
+
+      echo json_encode($response);
+      exit;
     }
 
     /**

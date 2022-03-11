@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'departamentos',
             'motivos',
             'contactos_entidades',
-        //    'existencias',
+            'recep',
          //   'precio_productos',
          //   'iva',
          //   'comprasfi_cab',
@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
     
        
         $this->call(TablaMotivosSeeder::class);
-        //$this->call(TablaProductosSeeder::class);
+      //  $this->call(TablaProductosSeeder::class);
         //$this->call(TablaProductoExistenciaSeeder::class);
         //$this->call(TablaPrecioProductosSeeder::class);
         //$this->call(TablaProveedoresSeeder::class);

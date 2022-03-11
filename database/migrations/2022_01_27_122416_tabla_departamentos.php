@@ -16,9 +16,10 @@ class TablaDepartamentos extends Migration
        Schema::create('departamentos', function (Blueprint $table) {
         $table->bigIncrements('id');
         $table->string('dpto_nombre', 192);
+        $table->string('descripcion',192)->nullable;
         $table->string('glyphicon', 192);
         $table->string('class', 192);
-        $table->string('orden', 3);
+        $table->unsignedBigInteger('orden');
         $table->boolean('activo')->default('1');
         $table->unsignedBigInteger('sede_id');
         $table->foreign('sede_id', 'id_sede_fkdepto')->references('id')->on('sedes')->onDelete('restrict')->onUpdate('restrict');
