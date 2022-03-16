@@ -4,7 +4,7 @@
 @endsection
 
 @section("scripts")
-<script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+
 <script src="{{asset("assets/$theme/plugins/datatables/jquery.dataTables.min.js")}}"></script>
 <script src="{{asset("assets/$theme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
 <script src="{{asset("assets/$theme/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>

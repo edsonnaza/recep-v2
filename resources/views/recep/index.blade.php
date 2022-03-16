@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('titulo', 'RECEP') | Recepción Inteligente.</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Tell the browser to be responsive to screen width -->
  <!-- CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -25,6 +26,24 @@
     z-index: 1100;
 }
 </style>
+<style type="text/css">
+  .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background:  url("{{ asset('assets/img/cargando.gif') }}") 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+    display:none;
+}
+</style>
+<script type="text/javascript">
+$(window).load(function() {
+    $(".loader").fadeOut("slow");
+});
+</script>
 
  
     <!-- Ionicons -->
@@ -72,11 +91,12 @@
     <!-- Site wrapper -->
     <div class="content">
         <!-- Inicio Header -->
-        
+         <div id="cargando"   ></div>
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
   
-    <h6 class="page-header">NOVARA SA - DEPARTAMENTOS DISPONBILES </h6> 
+    <h6 class="page-header">NOVARA SA - DEPARTAMENTOS DISPONIBLES </h6> 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
@@ -115,7 +135,7 @@
                 <div class="container-fluid">
                      <div class="row">
                         @foreach($datas as $data)
-                            <div data-toggle="modal" data-target="#SolicitarAtencion"  data-id="{{$data->id}}" data-name="{{$data->dpto_nombre }}"  class="col-lg-3 col-6">
+                            <div data-toggle="modal" id="openModal" data-target="#SolicitarAtencion" data-action="{{ route('recepguardar') }}"   data-id="{{$data->id}}" data-name="{{$data->dpto_nombre }}"  class="col-lg-3 col-6">
 
                             <div class="small-box bg-info">
                             <div class="inner">
@@ -144,12 +164,25 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="staticBackdropLabel">Solicitar atención en recepción</h4>
+ 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button> 
+                      
+                
+                     
                 </div>
+
               <div class="modal-body">
-                 <input type="hidden" id="id_visitante">
+ <div class="form-group">
+    
+    <div id="aviso" class="" role="alert">
+    <h6 id="message"></h6>
+</div>
+        <form   method="post" id="formData">
+
+        @csrf
+             <input type="hidden" id="id_visitante">
                     <div class="form-group  ">
                         <label class="label-control" for="id_dpto">Departamento seleccionado:</label>
                              <select class="form-control" onchange=" BuscarColaborador(document.getElementById('id_dpto').value);document.getElementById('aviso').innerHTML='';document.getElementById('btnguardarPNModalModificar').disabled=false;"  id="id_dpto"        >
@@ -164,32 +197,35 @@
 
                     <div class="form-group">
                             <label for="nombre_visitante">Nombre del visitante:</label>
-                            <input type="text" class="form-control"   onclick="select(); document.getElementById('btnguardarPN').disabled=false;" placeholder="Ejemplo: Pepe Gómez"    onkeyup="javascript:this.value=this.value.toUpperCase();"  id="nombre_visitante">
+                            <input type="text" class="form-control"   onclick="select(); $('.alert').alert('close'); document.getElementById('btn-save').disabled=false; " placeholder="Ejemplo: Pepe Gómez"    onkeyup="javascript:this.value=this.value.toUpperCase();"  id="nombre_visitante">
                     </div>
                     <div class="form-group">
                             <label for="nombre_moneda">Origen/Empresa:</label>
-                            <input type="text" class="form-control"   onclick="select(); document.getElementById('btnguardarPN').disabled=false;" placeholder="EJ.: PRODUCTOR AGRICOLA"   onkeyup="javascript:this.value=this.value.toUpperCase();"  id="empresa">
+                            <input type="text" class="form-control"   onclick="select();$('.alert').alert('close'); document.getElementById('btn-save').disabled=false;  " placeholder="EJ.: PRODUCTOR AGRICOLA"   onkeyup="javascript:this.value=this.value.toUpperCase();"  id="empresa">
                     </div>
  
-                         <input type="hidden" id="motivo">
-                         <input type="hidden" id="id_motivo">        
-                        <input type="hidden" id="colaborador">
-                        <input type="hidden" id="id_colaborador">
+                         <input type="hidden" value="Otros" id="motivo">
+                         <input type="hidden" value="6" id="id_motivo">        
+                        <input type="hidden" value="Default" id="nombre_colaborador">
+                        <input type="hidden" value="1" id="id_colaborador">
+                        <input type="hidden" value="1" id="id_colaborador_atencion">
+                         <input type="hidden" name="sede_id" id="sede_id" value={{session()->get('sede_id')}}>
       
                     <div class="form-group">
                           <label for="descripcion">Comentario del visitante <small>(opcional)</small>:</label>
-                          <input type="text" class="form-control"   onclick="select(); document.getElementById('btnguardarPN').disabled=false;" value="" placeholder="Descripcion de la visita." onkeyup="javascript:this.value=this.value.toUpperCase();" id="comentario_visitante">
+                          <input type="text" class="form-control"   onclick="select(); document.getElementById('btn-save').disabled=false;" value="" placeholder="Descripcion de la visita." onkeyup="javascript:this.value=this.value.toUpperCase();" id="comentario_visitante">
                     </div>
                       
                     <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" id="btnguardarPN" class="btn btn-primary">Confirmar</button>
+                    <button type="button" id="btn-salir" class="btn btn-default" href="index.php" onclick="limpiarCampos();$('.alert').alert('close');")  data-dismiss="modal">Cancelar</button>
+                          <button type="button" onclick="createPost();" class="btn btn-primary" id="btn-create">Guardar</button>
                     </div>
              </div>
             </div>
         </div>
+</form>
         <!--Inicio Footer -->
-        @include("theme/$theme/footer")
+      
         <!-- Fin Footer -->
         <!-- Control Sidebar -->
        
@@ -211,7 +247,10 @@
     <script src="{{asset("assets/js/scripts.js")}}"></script>
     <script src="{{asset("assets/js/funciones.js")}}"></script>
    <script src="{{asset("assets/js/recep.js")}}"></script>
+  
      
+ 
+ 
  
  
     <!-- Select2 -->
@@ -241,13 +280,14 @@
             },
             success: function( data ) {
                response( data );
+               console.log(data);
             }
           });
         },
         select: function (event, ui) {
-           $('#nombre_visitante').val(ui.item.label);
+           $('#nombre_visitante').val(ui.item.nombre_visitante);
            $('#id_visitante').val(ui.item.value); 
-          //$('#activo').val(ui.item.activo);
+            $('#empresa').val(ui.item.empresa_origen);
            return false;
         }
       });

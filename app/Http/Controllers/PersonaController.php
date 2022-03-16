@@ -132,15 +132,22 @@ class PersonaController extends Controller
          $search = $request->search;
 
       if($search == ''){
-         $autocomplate = Persona::orderby('full_name_persona','asc')->select('id','full_name_persona','nro_mobil')->limit(5)->get();
+          
+         $autocomplate = Persona::orderby('full_name_persona','asc')->select('id','full_name_persona','nro_mobil','empresa_origen')->limit(5)->get();
       }else{
-         $autocomplate = Persona::orderby('full_name_persona','asc')->select('id','full_name_persona','nro_mobil')->where('full_name_persona', 'like', '%' .$search . '%')->limit(5)->get();
-      }
+         $autocomplate = Persona::orderby('full_name_persona','asc')->select('id','full_name_persona','nro_mobil','empresa_origen')->where('full_name_persona', 'like', '%' .$search . '%')->limit(5)->get();
+     
+         // $autocomplate = Persona::select("personas.id", DB::raw("CONCAT(personas.full_name_persona,' ',personas.empresa_origen) as full_name_empresa"),'personas.full_name_persona','personas.empresa_origen')->where('personas.full_name_persona', 'like', '%' .$search . '%')->limit(5)->get();
+       
+     }
 
       $response = array();
       foreach($autocomplate as $autocomplate){
-         $response[] = array("value"=>$autocomplate->id,"label"=>$autocomplate->full_name_persona,"nro_mobil"=>$autocomplate->nro_mobil);
+          
+         $response[] = array("value"=>$autocomplate->id,"label"=>[$autocomplate->full_name_persona, $autocomplate->empresa_origen],"nombre_visitante"=>$autocomplate->full_name_persona,"nro_mobil"=>$autocomplate->nro_mobil,"empresa_origen"=>$autocomplate->empresa_origen);
       }
+
+     //$response.splice(1, 1, 'May');
 
       echo json_encode($response);
       exit;

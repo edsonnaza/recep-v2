@@ -59,6 +59,7 @@ Route::get('recep', [RecepController::class,'index'])->name('recep');
 Route::get('buscarpersonas', [PersonaController::class,'buscarPersonas'])->name('buscar_personas');
 Route::get('motivosdatos', [ComprasFIDETController::class,'motivosdatos'])->name('motivosdatos');
 Route::get('mot', [ComprasFIDETController::class,'index'])->name('mot');
+Route::post('/recepguardar', [RecepController::class,'guardar'])->name('recepguardar');
 
 /*Route::get('medidas_basicas/crear', [MedidasBasicasController::class,'crear'])->name('crear_medidas_basicas');
 Route::post('medidas_basicas', [MedidasBasicasController::class,'guardar'])->name('guardar_medidas_basicas');

@@ -34,7 +34,8 @@ class UsuarioAdministradorSeeder extends Seeder
             'id_seguro' =>'1',
             'genero' =>'H',
             'id_nacionalidad'=>'9',
-            'foto_persona' =>'Labiaik9xMqGs8YfuG5D.jpg'
+            'foto_persona' =>'Labiaik9xMqGs8YfuG5D.jpg',
+             'empresa_origen'=>'NOVARA S.A.',
         ]);
       //  DB::table('personas')->insert($persona);
 

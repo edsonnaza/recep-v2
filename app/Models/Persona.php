@@ -15,7 +15,7 @@ use App\Models\Departamento;
 class Persona extends Model
 {
     protected $table = "personas";
-    protected $fillable = ['persona_nombre', 'persona_apellido', 'full_name_persona', 'id_tipodni', 'numero_dni', 'email', 'facebook', 'nro_mobil', 'nro_telefono', 'genero',  'id_nacionalidad', 'fecha_nacimiento', 'id_tipopersona', 'id_estadocivil', 'id_profesion', 'id_seguro', 'foto_persona','ruc','id_especialidad','id_usuario','razon_social','ruc'];
+    protected $fillable = ['persona_nombre', 'persona_apellido', 'full_name_persona', 'id_tipodni', 'numero_dni', 'email', 'facebook', 'nro_mobil', 'nro_telefono', 'genero',  'id_nacionalidad', 'fecha_nacimiento', 'id_tipopersona', 'id_estadocivil', 'id_profesion', 'id_seguro', 'foto_persona','ruc','id_especialidad','id_usuario','razon_social','ruc','empresa_origen'];
 
     public function paciente()
     {

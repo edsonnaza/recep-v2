@@ -9,7 +9,7 @@ class Recep extends Model
 {
     use HasFactory;
     protected $table = 'recep';
-    protected $fillable =   [   'id_dpto', 'id_visitante','nombre_visitante','empresa',
+    protected $fillable =   [   'id_dpto', 'id_visitante','nombre_visitante','empresa_origen',
                                 'id_motivo','motivo','situacion','comentario_visitante',
                                 'fecha','id_colaborador','nombre_colaborador',
                                 'comentario_colaborador','id_colaborador_atencion',
