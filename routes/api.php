@@ -6,7 +6,7 @@ use App\Models\Productos;
 use App\Models\ComprasFIDET;
 use App\Models\ComprasFI;
 use App\Models\Motivo;
-
+use App\Models\Recep;
  
 
 /*
@@ -30,15 +30,21 @@ Route::middleware('api')->group(function () {
 
         
 
-Route::get('/motivos', function (Request $request) {
-    $motivos = Motivo::all(['id', 'nombre_motivo']);
-    return response()->json($motivos);
+Route::get('apirecep', function (Request $request) {
+    $apirecep = Recep::where('eliminado','like','NO') ->Where('situacion','=','EN ESPERA')->get();
+    return response()->json($apirecep);
+
+
 
 });
 
 
         
-   
+   Route::get('/search',function(Request $request){
+ $query=$request->search;
+ $data = 'https://jobs.backbonesystems.io/api/zip-codes/01210';
+ return response()->json($data);
+});
 
 
 

@@ -6,18 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('titulo', 'RECEP') | Recepción Inteligente.</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
- <script src="{{asset("js/app.js")}}"></script>
+
     <!-- Tell the browser to be responsive to screen width -->
  <!-- CSS -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha256-IdfIcUlaMBNtk4Hjt0Y6WMMZyMU0P9PN/pH+DFzKxbI=" crossorigin="anonymous" />
+      <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset("assets/$theme/plugins/fontawesome-free/css/all.min.css")}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset("assets/$theme/dist/css/adminlte.min.css")}}">
 
-    <!-- Script -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <link rel="stylesheet" href="{{asset("assets/css/custom.css")}}">
+     <link rel="stylesheet" href="{{asset("assets/$theme/plugins/select2/css/select2.min.css")}}">
+     <link rel="stylesheet" href="{{asset("assets/$theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")}}">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+
+       <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset("assets/$theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
+  <link rel="stylesheet" href=""{{asset("assets/$theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}"
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset("assets/$theme/plugins/fontawesome-free/css/all.min.css")}}">
+<link rel="stylesheet" href="{{asset("assets/$theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
+<link rel="stylesheet" href="{{asset("assets/$theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
+<link rel="stylesheet" href="{{asset("assets/$theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")}}">
+@section("scripts")
+ 
+<script src="{{asset("assets/$theme/plugins/datatables/jquery.dataTables.min.js")}}"></script>
+<script src="{{asset("assets/$theme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
+<script src="{{asset("assets/$theme/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>
+<script src="{{asset("assets/$theme/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")}}"></script>
+
+@endsection
 
   
   
@@ -27,23 +46,32 @@
 }
 </style>
 <style type="text/css">
-  .loader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
+
+
+.modal-fullscreen-xl{
+    padding: 0 !important;
+}
+.modal-dialog-xl {
+
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+
+.modal-content-xl {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.modal-body-xl {
+  overflow-y: auto;
+}
+.iframePDF-xl{
     height: 100%;
-    z-index: 9999;
-    background:  url("{{ asset('assets/img/cargando.gif') }}") 50% 50% no-repeat rgb(249,249,249);
-    opacity: .8;
-    display:none;
 }
 </style>
-<script type="text/javascript">
-$(window).load(function() {
-    $(".loader").fadeOut("slow");
-});
-</script>
 
  
     <!-- Ionicons -->
@@ -57,6 +85,7 @@ $(window).load(function() {
      <link rel="stylesheet" href="{{asset("assets/$theme/plugins/select2/css/select2.min.css")}}">
      <link rel="stylesheet" href="{{asset("assets/$theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")}}">
 
+
        <!-- DataTables -->
   <link rel="stylesheet" href="{{asset("assets/$theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
   <link rel="stylesheet" href=""{{asset("assets/$theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
@@ -66,7 +95,11 @@ $(window).load(function() {
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
- 
+ <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield("styles")
 
 
@@ -96,7 +129,7 @@ $(window).load(function() {
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
   
-    <h6 class="page-header">NOVARA SA - DEPARTAMENTOS DISPONIBLES </h6> 
+    <h6 class="page-header">NOVARA SA - VISITAS EN RECEPCIÓN </h6> 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
@@ -126,39 +159,145 @@ $(window).load(function() {
 </nav>
         <!-- Fin Header -->
       
-        <div class="content-wrapper">
+        <div class="content-wrapper" >
             <!-- Content Header (Page header) -->
+ 
             <section class="content-header">
-<div id="app" >
-        <recep-card></recep-card>
-           </div>
+              
             </section>
-            <section class="content">
+
+          
+      <section class="content"  >
+
+  
+ <!--Call your modal-->
+
+   @foreach($recepEspera as $recep)
+      {{ $time=\Carbon\Carbon::parse($recep->created_at)->subMinute();
+
+        }}
+    @if($time<10){
+   
+        <div id="cont" class="row justify-content-center "  >
+             
+                  <input type="hidden"  id="nv" value="{{$recep->nombre_visitante}}" > 
+                  <input type="hidden"  id="ne" value="{{$recep->empresa_origen}}" > 
+                <div class="col-lg-8"  >
+
+                <div class="small-box bg-danger text-center" >
+                <div class="inner">
+                <h1 class="animate__animated animate__headShake animate__repeat-2">{{$recep->nombre_visitante}}</h1>
+                <p> {{$recep->comentario_visitante}}</p>
+                <i class="fa fa-building"></i> Empresa: <strong> {{$recep->empresa_origen}}  </strong>
+                <p><i class="fa fa-clock"></i> Tiempo en espera:
+                <span class="pull-right text-description small">
+                {{ \Carbon\Carbon::parse($recep->created_at)->diffForHumans();}}. </span></p>
+                </div>
+                <div class="icon">
+                <i class="fas fa-user-plus"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                Atender <i class="fas fa-arrow-circle-right"></i>
+                </a>
+                </div>
+        </div>
+
+                   <script>
+                  
+                    Swal.fire(document.getElementById('ne').value, {
+                    timer: 3000,
+                    title: document.getElementById('nv').value,
+                    icon: "warning",
+                    background: 'red',
+                    showconfirmButton: false,
+                  });
+                    
+                      $(".sweet-alert").css('background-color', '#000');
+                  </script>
+} @endif
+                @endforeach
+           
+        </div>
+
+@if(is_null($recep))
+    
+
+   
                 <div class="container-fluid">
                      <div class="row">
-                        @foreach($datas as $data)
-                            <div data-toggle="modal" id="openModal" data-target="#SolicitarAtencion" data-action="{{ route('recepguardar') }}"   data-id="{{$data->id}}" data-name="{{$data->dpto_nombre }}"  class="col-lg-3 col-6">
+                       <div class="card card-outline card-warning">
+                        <div class="card-header">
+                        <h3 class="card-title">VISTAS RECIENTES EN RECEPCIÓN</h3>
+                        </div>
 
-                            <div class="small-box bg-info">
-                            <div class="inner">
-                            <h3>{{$data->orden}}</h3>
-                            <p>{{$data->dpto_nombre }}</p>
-                             <small class="text-warning"> {{$data->descripcion}}</small>   
-                            </div>
-                            <div class="icon">                           
-                                {!! $data->glyphicon !!}
-                            </div>
-                            
-                            <a href="#"   class="small-box-footer">Solicitar atención <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                            </div>
-                           @endforeach 
+                        <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>VISITA</th>
+                        <th>EMPRESA</th>
+                        <th>COMENTARIO DEL VISITANTE</th>
+                        <th>DEPARTAMENTO</th>
+                        <th>SITUACION</th>
+                        <th>ACCION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($recepAtendidos as $recep)
+                        <tr>
+                        <td>{{$recep->id}}</td>
+                        <td>{{$recep->nombre_visitante}}</td>
+                        <td>{{$recep->empresa_origen}}</td>
+                        <td>{{$recep->comentario_visitante}}</td>
+                        <td>{{$recep->id_dpto}}</td>
+                        <td>{{$recep->situacion}}</td>
+                        <td></td>
+                        </tr>
+                        @endforeach
+                                             
+                        </tfoot>
+                        </table>
+                        </div>
+
                      </div>   
-                </div>
+ 
+<div class="col-md-6 ">
+<div class="card card-success">
+<div class="card-header">
+<h3 class="card-title">Visitas Recientes</h3>
+<div class="card-tools">
+<button type="button" class="btn btn-tool" data-card-widget="collapse">
+<i class="fas fa-minus"></i>
+</button>
+<button type="button" class="btn btn-tool" data-card-widget="remove">
+<i class="fas fa-times"></i>
+</button>
+ </div>
+</div>
+<div
+<div class="card-body p-0">
+<ul class="products-list product-list-in-card pl-2 pr-2">
+<li class="item">
+<div class="product-img">
+<img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+</div>
+<div class="product-info">
+<a href="javascript:void(0)" class="product-title">Samsung TV
+<span class="badge badge-warning float-right">$1800</span></a>
+<span class="product-description">
+Samsung 32" 1080p 60Hz LED Smart HDTV.
+</span>
+</div>
+</div>
             </section>
+@endif
         </div>
 
 
+<!--Inicio Footer -->
+        @include("theme/$theme/footer")
+        <!-- Fin Footer -->
 
         <!-- Modal Solicitar Atencion-->
         <div class="modal fade" data-backdrop="static" id="SolicitarAtencion">
@@ -225,6 +364,7 @@ $(window).load(function() {
              </div>
             </div>
         </div>
+ 
 </form>
         <!--Inicio Footer -->
       
@@ -235,9 +375,20 @@ $(window).load(function() {
         <!--Inicio de ventana modal para login con más de un rol -->
  
     </div>
-   
+       <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+<script src="{{asset("assets/$theme/plugins/datatables-buttons/js/dataTables.buttons.min.js")}}"></script>
+<script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")}}"></script>
+    <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+  <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")}}"></script>
+
+ 
+ <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.html5.min.js")}}"></script>
+ <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.print.min.js")}}"></script>
+ <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.colVis.min.js")}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
     <!-- AdminLTE for demo purposes -->
@@ -250,7 +401,7 @@ $(window).load(function() {
     <script src="{{asset("assets/js/funciones.js")}}"></script>
    <script src="{{asset("assets/js/recep.js")}}"></script>
   
-     
+ <script src="{{asset(mix("js/app.js"))}}"></script>
  
  
  
@@ -296,6 +447,45 @@ $(window).load(function() {
 
     });
     </script>
+
+     <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+          "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+"language":{ 
+    "decimal":        "",
+    "emptyTable":     "Sin datos",
+    "info":           "Mostrando _START_ hasta _END_ de _TOTAL_ registros",
+    "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
+    "infoFiltered":   "(filtrado desde _MAX_ total registros)",
+    "infoPostFix":    "",
+    "thousands":      ",",
+    "lengthMenu":     "Muestra _MENU_ registros",
+    "loadingRecords": "Cargando...",
+    "processing":     "Procesando...",
+    "search":         "Buscar:",
+    "zeroRecords":    "Registro no encontrado",
+    "paginate": {
+        "first":      "Primero",
+        "last":       "Ultimo",
+        "next":       "Siguiente",
+        "previous":   "Previo"
+    } 
+    } ,
+    }) ;
+  });
+</script>
+<script>
+  $("#demo01").animatedModal();
+</script>
 </body>
 
 </html>

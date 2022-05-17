@@ -19,6 +19,7 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+ <script src="{{asset(mix("js/app.js"))}}"></script>
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
@@ -45,7 +46,7 @@
                     </svg>
                 </div>
  <div id="app" class="col-12">
-        <articulos/>
+        <recep-card/>
            </div>
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
@@ -130,5 +131,6 @@
                 </div>
             </div>
         </div>
+ <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

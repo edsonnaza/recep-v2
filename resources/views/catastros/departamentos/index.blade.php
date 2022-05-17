@@ -13,6 +13,10 @@
 
 @section('contenido')
 <div class="row">
+
+<div id="app">
+<recep-card/>
+</div>
     <div class="col-lg-12">
         @include('includes.mensaje')
         <div class="card card-info">

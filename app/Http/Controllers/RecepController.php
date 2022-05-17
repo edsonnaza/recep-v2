@@ -9,12 +9,23 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Persona;
 use App\Models\ClasificacionPersona;
 use App\Models\Clasificacion;
-
+use App\Repositories\RecepClass;
 
 
 
 class RecepController extends Controller
 {
+    protected $receps;
+
+    public function __construct(RecepClass $receps){
+            $this->receps = $receps;
+    }
+
+
+
+        public function home(){
+            return view('welcome');
+        }
     public function index()
     {
               $datas = Departamento::orderBy('orden','ASC')->get();
@@ -23,8 +34,8 @@ class RecepController extends Controller
                 
     }
 
-     public function guardar(Request $request)
-    {                 
+            public function guardar(Request $request)
+            {                 
                 $id_visitante=$request->id_visitante;
                 $persona=Persona::find($id_visitante);
                 /* Book::updateOrCreate(['id' => $request->book_id],
@@ -75,28 +86,28 @@ class RecepController extends Controller
                 'sede_id'=>$request->input('sede_id'),
                 'id_colaborador'=>$request->input('id_colaborador'));*/
 
-                 $now = Carbon::now()->toDateTimeString();
+                $now = Carbon::now()->toDateTimeString();
                 $datos =array(
               
-               'id_visitante'=>$request->id_visitante,
-                'nombre_visitante'=>$request-> nombre_visitante,
-                'empresa_origen'=>$request-> empresa_origen ,
-                'comentario_visitante'=>$request-> comentario_visitante ,
-                'id_colaborador'=>$request-> id_colaborador ,
-                'id_motivo'=>$request-> id_motivo ,
-                'colaborador'=>$request-> colaborador ,
-                'id_dpto'=>$request-> id_dpto ,
-                'hora_atencion'=> $now ,
-                'motivo'=>$request-> motivo  ,
-                'id_dpto'=>$request-> id_dpto ,
-                'nombre_colaborador'=>$request-> nombre_colaborador ,
-                'comentario_colaborador'=>$request-> comentario_colaborador ,
-                'id_colaborador_atencion'=>$request-> id_colaborador_atencion ,
-                'sede_id'=>$request-> sede_id ,
-                'id_colaborador'=>$request-> id_colaborador ,
-                'nombre_colaborador'=>$request-> nombre_colaborador ,
-                'comentario_colaborador'=>$request-> comentario_colaborador
-              );
+                'id_visitante'=>$request->id_visitante,
+                    'nombre_visitante'=>$request-> nombre_visitante,
+                    'empresa_origen'=>$request-> empresa_origen ,
+                    'comentario_visitante'=>$request-> comentario_visitante ,
+                    'id_colaborador'=>$request-> id_colaborador ,
+                    'id_motivo'=>$request-> id_motivo ,
+                    'colaborador'=>$request-> colaborador ,
+                    'id_dpto'=>$request-> id_dpto ,
+                    'hora_atencion'=> $now ,
+                    'motivo'=>$request-> motivo  ,
+                    'id_dpto'=>$request-> id_dpto ,
+                    'nombre_colaborador'=>$request-> nombre_colaborador ,
+                    'comentario_colaborador'=>$request-> comentario_colaborador ,
+                    'id_colaborador_atencion'=>$request-> id_colaborador_atencion ,
+                    'sede_id'=>$request-> sede_id ,
+                    'id_colaborador'=>$request-> id_colaborador ,
+                    'nombre_colaborador'=>$request-> nombre_colaborador ,
+                    'comentario_colaborador'=>$request-> comentario_colaborador
+                );
     
             
 
@@ -199,5 +210,46 @@ class RecepController extends Controller
                                                         
                             }
     
+    }
+    
+    /**RECEP ATENCION DE VISITAS */
+    public function monitorcolaborador(){
+    
+                
+           $datas = Departamento::orderBy('orden','ASC')->get();
+          // $recepEspera=Recep::get()->where('situacion','=','EN ESPERA');
+           $recepAtendidos=Recep::get()->where('situacion','=','ATENDIDO');
+                
+                   /* $client = new Client([
+                    // Base URI is used with relative requests
+                   // 'base_uri' => 'https://jsonplaceholder.typicode.com',
+                       'base_uri' => 'http://localhost/recepapi/',
+                        
+                    // You can set any number of default request options.
+                        'timeout'  => 2.0,
+                    ]);*/
+                      //  $client = new Client(['verify' => false]);
+                     //  $recepEspera = $client->get('localhost/recepapi/');
+                        
+                      //  $recepEspera = Http::get('http://localhost/recepapi');
+                      
+                        // Create a client with a base URI
+                       // $client = new Client(['base_uri' => 'http://localhost:9000/']);
+                            
+                    // Send a request to https://foo.com/api/test
+                       // $recepEspera = $client->request('GET', 'api/');
+                       // $recepEspera = $client->get('api/');
+                        //  $recepEspera= response()->json($recepEspera);
+                      //   $recepAtendidos= toArray($recepEspera);
+                   // $recepEspera=$this->receps->all();
+                       // $recepEspera=json_encode($recepEspera,true);
+
+                       $recepEspera= $this->receps->all();
+                    
+                   // $recepEspera=json_decode($recepEspera->getBody()->getContents());
+                                 
+                return view('recep.monitorcolaborador',compact('datas','recepEspera','recepAtendidos'));
+     
+
     }
 }

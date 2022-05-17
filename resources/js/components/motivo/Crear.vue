@@ -1,4 +1,4 @@
-<template lang="pug">
+<!--<template lang="pug">
     <div class="form-group row">
     <label for="dpto_nombre" class="col-lg-3 col-form-label requerido">Nombre Departamento</label>
     <div class="col-lg-8">

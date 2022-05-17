@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('titulo', 'RECEP') | Recepción Inteligente.</title>
     <!-- Tell the browser to be responsive to screen width -->
+   <script src="{{asset("js/app.js")}}"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset("assets/$theme/plugins/fontawesome-free/css/all.min.css")}}">
     <!-- Ionicons -->
@@ -98,7 +99,8 @@
     <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
-    <!-- AdminLTE App -->
+<script src="{{asset("assets/$theme/plugins/datatables-buttons/js/dataTables.buttons.min.js")}}"></script>
+<script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")}}"></script>
     <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
     <!-- AdminLTE for demo purposes -->
     @yield("scriptsPlugins")

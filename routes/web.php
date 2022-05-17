@@ -31,6 +31,7 @@ use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\MedidasBasicasController;
 use App\Http\Controllers\RecepController;
 use App\Http\Controllers\ComprasFIDETController;
+use App\Http\Controllers\BooksController;
 
 
  
@@ -60,6 +61,8 @@ Route::get('buscarpersonas', [PersonaController::class,'buscarPersonas'])->name(
 Route::get('motivosdatos', [ComprasFIDETController::class,'motivosdatos'])->name('motivosdatos');
 Route::get('mot', [ComprasFIDETController::class,'index'])->name('mot');
 Route::post('/recepguardar', [RecepController::class,'guardar'])->name('recepguardar');
+Route::get('monitorcolaborador', [RecepController::class,'monitorcolaborador'])->name('recep.monitorcolaborador');
+Route::get('/home', [RecepController::class,'home'])->name('home');
 
 /*Route::get('medidas_basicas/crear', [MedidasBasicasController::class,'crear'])->name('crear_medidas_basicas');
 Route::post('medidas_basicas', [MedidasBasicasController::class,'guardar'])->name('guardar_medidas_basicas');
@@ -67,7 +70,8 @@ Route::get('medidas_basicas/{id}/editar', [MedidasBasicasController::class,'edit
 Route::put('medidas_basicas/{id}', [MedidasBasicasController::class,'actualizar'])->name('actualizar_medidas_basicas');
 Route::delete('medidas_basicas/{id}', [MedidasBasicasController::class,'eliminar'])->name('eliminar_medidas_basicas');*/
 
-
+Route::get('books',[BooksController::class,'index'])->name('books');
+Route::post('create_book',[BooksController::class,'store'])->name('create_book');
 
 
 /*RUTAS PASSWORD RESET*/

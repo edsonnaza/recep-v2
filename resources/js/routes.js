@@ -1,10 +1,11 @@
 // importamos los componentes para motivo:
-const mostrarMotivos = () =>
-    import ('./components/motivo/mostrarMotivos.vue');
+/*    import ('./components/motivo/mostrarMotivos.vue');
 const crearMotivo = () =>
     import ('./components/motivo/Crear.vue');
 const modificarMotivo = () =>
     import ('./components/motivo/Modificar.vue');
+const RecepCard = () =>
+    import ('./components/Recepcard.vue');
 
 
 export const routes = [{
@@ -19,8 +20,11 @@ export const routes = [{
         name: modificarMotivo,
         path: '/modificarMotivo/:id',
         component: modificarMotivo
-    },
+    }, { name: RecepCard,
+        path: '/recepcard',
+        component: RecepCard}
+       
 
 
 
-];
+];*/

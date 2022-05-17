@@ -94,39 +94,64 @@ const app = new Vue({
     render: h => h(App),
 }); */
 //import vue
+
+
+
+//import Vue from 'vue';
+//import * as Vue from 'vue'
+//import App from './components/App.vue';
 require('./bootstrap');
-
-
-import Vue from 'vue';
-import App from './components/App.vue';
-
 //importamos Axios
-import VueAxios from 'vue-axios';
-import axios from 'axios';
+//import VueAxios from 'vue-axios';
+//import axios from 'axios';
 
 //Importamos y configuramos el Vue-router
-import VueRouter from 'vue-router';
-import { routes } from './routes';
+//import VueRouter from 'vue-router';
+//import { routes } from './routes';
 
-Vue.use(VueRouter);
-Vue.use(VueAxios, axios);
+//Vue.use(VueRouter);
+//Vue.use(VueAxios, axios);
 
-const router = new VueRouter({
+/*const router = new VueRouter({
     mode: 'history',
     routes: routes
-});
+});*/
 
-window.Vue = require("vue").default;
+//window.Vue = require("vue").default;
 
 
 //register component
-Vue.component('mostrar-motivos', require('./components/motivo/mostrarMotivos.vue').default);
-Vue.component('crear-motivo', require('./components/motivo/Crear.vue').default);
+//Vue.component('mostrar-motivos', require('./components/motivo/mostrarMotivos.vue').default);
+Vue.component('recep-card', require('./components/Recepcard.vue').default);
 
 
+import Vue from 'vue';
+window.Vue = require('vue');
 
-const app = new Vue({
+new Vue({
     el: '#app',
-    router: router,
-    //render: h => h(App),
+
+         data:{
+                    saludar:'Hola desde la instacia app',
+                    numero: 11,
+                    lista:['1','2','3','4','100','300'],
+                    activo: false,
+                    blog: '<h4>Hola mundo!! </h4>',
+                    texto: 'Otro hola mundo'
+
+        },
+    
+        methods: {
+            saludando: function(){
+                console.log('Saludando desde la consola');
+            },
+
+            CargarRecep: function(){
+                this.axios.get('127.0.0.1:8000/api/apirecep').then(
+                        function (response) {
+                            console.log(response.data)
+                        }
+                )
+            }
+ }
 });

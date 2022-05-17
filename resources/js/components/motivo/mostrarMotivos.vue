@@ -1,4 +1,4 @@
-<template>
+<!--<template>
 
 <div class="row">
     <div class="col-lg-12">
@@ -10,7 +10,7 @@
         <div class="row">
         <div class="col-12 mb-2">
             <!-- llamamos al componente para Crear   -->
-            <router-link :to='{name:"crearMotivo"}' class="btn btn-success"><i class="fas fa-plus-circle"></i></router-link>
+      <!--      <router-link :to='{name:"crearMotivo"}' class="btn btn-success"><i class="fas fa-plus-circle"></i></router-link>
         </div>
         <div class="col-12">             
                     <div class="table-responsive">
@@ -28,7 +28,7 @@
                                     <td>{{ motivo.nombre_motivo }}</td>
                                     <td>
                                         <!-- llamamos al componente para Editar     -->
-                                        <router-link :to='{name:"editarMotivo",params:{id:motivo.id}}' class="btn btn-info"><i class="fas fa-edit"></i></router-link>
+                 <!--                       <router-link :to='{name:"editarMotivo",params:{id:motivo.id}}' class="btn btn-info"><i class="fas fa-edit"></i></router-link>
                                         <a type="button" @click="borrarBlog(motivo.id)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -45,7 +45,7 @@
  
     
 </template>
-
+<!--
 <script>
 export default {
     name:"motivos",
