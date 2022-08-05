@@ -63,6 +63,7 @@ Route::get('mot', [ComprasFIDETController::class,'index'])->name('mot');
 Route::post('/recepguardar', [RecepController::class,'guardar'])->name('recepguardar');
 Route::get('monitorcolaborador', [RecepController::class,'monitorcolaborador'])->name('recep.monitorcolaborador');
 Route::get('/home', [RecepController::class,'home'])->name('home');
+Route::get('/posts', [PostController::class,'store'])->name('post');
 
 /*Route::get('medidas_basicas/crear', [MedidasBasicasController::class,'crear'])->name('crear_medidas_basicas');
 Route::post('medidas_basicas', [MedidasBasicasController::class,'guardar'])->name('guardar_medidas_basicas');

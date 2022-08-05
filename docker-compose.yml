@@ -1,0 +1,65 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+      - mysql
+    networks:
+      - networkapp
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: recep
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - 33069:3306
+    volumes:
+      - dbdatarecep:/var/lib/mysql
+    networks:
+      - networkapp
+
+  phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: mysql
+            PMA_USER: root
+            PMA_PASSWORD: secret
+        ports:
+            - "8081:80"
+        restart: always
+        volumes:
+            - ./php.ini:/usr/local/etc/php/php.ini
+        networks:
+            - networkapp
+
+  app:
+    build:
+      args:
+        user: laraveluser
+        uid: 1000
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: app
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    networks:
+      - networkapp
+
+networks:
+  networkapp:
+
+volumes:
+  dbdatarecep:
