@@ -179,23 +179,25 @@
 
         @endphp
 
-        @if($time<10){
+        @if($time<10)
 
         <div id="cont" class="row justify-content-center "  >
 
                   <input type="hidden"  id="nv" value="{{$recep->nombre_visitante}}" >
                   <input type="hidden"  id="ne" value="{{$recep->empresa_origen}}" >
+                     <input type="hidden"  id="comentario_visitante" value="{{$recep->comentario_visitante}}" >
                 <div class="col-lg-8"  >
 
                 <div class="small-box bg-danger text-center" >
                 <div class="inner">
                 <h1 class="animate__animated animate__headShake animate__repeat-2">{{$recep->nombre_visitante}}</h1>
-                <p> {{$recep->comentario_visitante}}</p>
+                <p > {{$recep->comentario_visitante}}</p>
                 <i class="fa fa-building"></i> Empresa: <strong> {{$recep->empresa_origen}}  </strong>
                 <p><i class="fa fa-clock"></i> Tiempo en espera:
-                <span class="pull-right text-description small">
+                <span  class="pull-right text-description small">
                 {{ \Carbon\Carbon::parse($recep->created_at)->diffForHumans();}}. </span></p>
                 </div>
+                    <input type="hidden" id="waittime" value=" {{ \Carbon\Carbon::parse($recep->created_at)->diffForHumans();}}">
                 <div class="icon">
                 <i class="fas fa-user-plus"></i>
                 </div>
@@ -205,19 +207,38 @@
                 </div>
         </div>
 
-                   <script>
 
-                    Swal.fire(document.getElementById('ne').value, {
-                    timer: 3000,
-                    title: document.getElementById('nv').value,
-                    icon: "warning",
-                    background: 'red',
-                    showconfirmButton: false,
-                  });
 
-                      $(".sweet-alert").css('background-color', '#000');
-                  </script>
-} @endif
+                    <script>
+                        let timerInterval
+                        Swal.fire({
+                        title: '<strong> <h1 style="color:white !important; font-size:50;" class="animate__animated animate__headShake animate__repeat-2">'+ document.getElementById('nv').value+'</h1></strong> <br> <em><h4 style="color:white">'+ document.getElementById('comentario_visitante').value+ "</h4> </em>",
+                        html: '<h2 style="color:white"><i class="fa fa-building"></i> Empresa: ' + document.getElementById('ne').value + '</h2>',
+                        footer: '<h3 style="color:white"><span  class="pull-right text-description small"><i class="fa fa-clock"></i>'+ ' '+ document.getElementById('waittime').value + '</span></h3>',
+                        position: 'center',
+                        grow:'fullscreen',
+                        icon: "info",
+                        background: 'red',
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                            const b = Swal.getHtmlContainer().querySelector('b')
+                            timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                            }, 100)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                        }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log('I was closed by the timer')
+                        }
+                        })
+                    </script>
+@endif
 
 @endforeach
 
