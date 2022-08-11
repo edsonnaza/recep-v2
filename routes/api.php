@@ -7,7 +7,8 @@ use App\Models\ComprasFIDET;
 use App\Models\ComprasFI;
 use App\Models\Motivo;
 use App\Models\Recep;
- 
+use App\Models\Departamento;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,20 +27,27 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('api')->group(function () {
     //Route::resource('motivo', App\Http\Controllers\MotivoController::class);
-   
-
-        
-
-Route::get('apirecep', function (Request $request) {
-    $apirecep = Recep::where('eliminado','like','NO') ->Where('situacion','=','EN ESPERA')->get();
-    return response()->json($apirecep);
 
 
+
+
+Route::get('waiting', function (Request $request) {
+    $waiting = Recep::where('eliminado','like','NO') ->Where('situacion','=','EN ESPERA')->get();
+    return response()->json($waiting);
+});
+
+Route::get('attended', function (Request $request) {
+    $attended = Recep::where('eliminado','like','NO') ->Where('situacion','=','ATENDIDO')->get();
+    return response()->json($attended);
 
 });
 
+Route::get('department', function (Request $request) {
+    $department =Departamento::where('activo','=','1')->orderBy('orden','ASC')->get();
+    return response()->json($department);
 
-        
+});
+
    Route::get('/search',function(Request $request){
  $query=$request->search;
  $data = 'https://jobs.backbonesystems.io/api/zip-codes/01210';

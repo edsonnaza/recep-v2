@@ -178,7 +178,7 @@
             $time= $recepobj->waitTime($recep->created_at);
 
         @endphp
-       
+
         @if($time<10){
 
         <div id="cont" class="row justify-content-center "  >
@@ -218,7 +218,8 @@
                       $(".sweet-alert").css('background-color', '#000');
                   </script>
 } @endif
-                @endforeach
+
+@endforeach
 
         </div>
 
@@ -293,7 +294,7 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
 </span>
 </div>
 </div>
-            </section>
+</section>
 @endif
         </div>
 

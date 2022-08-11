@@ -89,7 +89,7 @@ class RecepController extends Controller
                 $now = Carbon::now()->toDateTimeString();
                 $datos =array(
 
-                'id_visitante'=>$request->id_visitante,
+                    'id_visitante'=>$request->id_visitante,
                     'nombre_visitante'=>$request-> nombre_visitante,
                     'empresa_origen'=>$request-> empresa_origen ,
                     'comentario_visitante'=>$request-> comentario_visitante ,
@@ -114,12 +114,10 @@ class RecepController extends Controller
         if(!empty($datos)){
 
                       $validator = Validator::make($datos,[
-                            //'id_visitante' => 'required',
-                            'empresa_origen' => 'required',
-                           // 'comentario_visitante'=>'required',
-                            'nombre_visitante'=>'required'
-
-                        ]);
+                       //'id_visitante' => 'required',
+                       'empresa_origen' => 'required',
+                       // 'comentario_visitante'=>'required',
+                       'nombre_visitante'=>'required'  ]);
                         if($validator->fails()){
                             return response()->json($validator->errors(),400);
                         } else{
@@ -217,39 +215,10 @@ class RecepController extends Controller
 
 
            $datas = Departamento::orderBy('orden','ASC')->get();
-          // $recepEspera=Recep::get()->where('situacion','=','EN ESPERA');
-           $recepAtendidos=Recep::get()->where('situacion','=','ATENDIDO');
-
-                   /* $client = new Client([
-                    // Base URI is used with relative requests
-                   // 'base_uri' => 'https://jsonplaceholder.typicode.com',
-                       'base_uri' => 'http://localhost/recepapi/',
-
-                    // You can set any number of default request options.
-                        'timeout'  => 2.0,
-                    ]);*/
-                      //  $client = new Client(['verify' => false]);
-                     //  $recepEspera = $client->get('localhost/recepapi/');
-
-                      //  $recepEspera = Http::get('http://localhost/recepapi');
-
-                        // Create a client with a base URI
-                       // $client = new Client(['base_uri' => 'http://localhost:9000/']);
-
-                    // Send a request to https://foo.com/api/test
-                       // $recepEspera = $client->request('GET', 'api/');
-                       // $recepEspera = $client->get('api/');
-                        //  $recepEspera= response()->json($recepEspera);
-                      //   $recepAtendidos= toArray($recepEspera);
-                   // $recepEspera=$this->receps->all();
-                       // $recepEspera=json_encode($recepEspera,true);
-
-                       $recepEspera= $this->receps->get('api/apirecep');
-                        
-
-                   // $recepEspera=json_decode($recepEspera->getBody()->getContents());
-
-                return view('recep.monitorcolaborador',compact('datas','recepEspera','recepAtendidos'));
+           $datas = $this->receps->get('api/department');
+           $recepEspera= $this->receps->get('api/waiting');
+           $recepAtendidos= $this->receps->get('api/attended');
+           return view('recep.monitorcolaborador',compact('datas','recepEspera','recepAtendidos'));
 
 
     }
