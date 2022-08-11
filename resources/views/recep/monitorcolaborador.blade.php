@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="{{asset("assets/$theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
 <link rel="stylesheet" href="{{asset("assets/$theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")}}">
 @section("scripts")
- 
+
 <script src="{{asset("assets/$theme/plugins/datatables/jquery.dataTables.min.js")}}"></script>
 <script src="{{asset("assets/$theme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
 <script src="{{asset("assets/$theme/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>
@@ -38,8 +38,8 @@
 
 @endsection
 
-  
-  
+
+
     <style type="text/css">
     ul.ui-autocomplete {
     z-index: 1100;
@@ -73,11 +73,11 @@
 }
 </style>
 
- 
+
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
- 
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset("assets/$theme/dist/css/adminlte.min.css")}}">
 
@@ -117,7 +117,7 @@
 
 
 
- 
+
 </head>
 
 <body class="control-sidebar-slide-open sidebar-closed sidebar-collapse" >
@@ -128,8 +128,8 @@
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-  
-    <h6 class="page-header">NOVARA SA - VISITAS EN RECEPCIÓN </h6> 
+
+    <h6 class="page-header">NOVARA SA - VISITAS EN RECEPCIÓN </h6>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
@@ -158,30 +158,33 @@
     </ul>
 </nav>
         <!-- Fin Header -->
-      
+
         <div class="content-wrapper" >
             <!-- Content Header (Page header) -->
- 
+
             <section class="content-header">
-              
+
             </section>
 
-          
-      <section class="content"  >
 
-  
+<section class="content"  >
+
+
  <!--Call your modal-->
 
    @foreach($recepEspera as $recep)
-      {{ $time=\Carbon\Carbon::parse($recep->created_at)->subMinute();
+        @php
+            $recepobj= new \app\Repositories\RecepClass();
+            $time= $recepobj->waitTime($recep->created_at);
 
-        }}
-    @if($time<10){
-   
+        @endphp
+       
+        @if($time<10){
+
         <div id="cont" class="row justify-content-center "  >
-             
-                  <input type="hidden"  id="nv" value="{{$recep->nombre_visitante}}" > 
-                  <input type="hidden"  id="ne" value="{{$recep->empresa_origen}}" > 
+
+                  <input type="hidden"  id="nv" value="{{$recep->nombre_visitante}}" >
+                  <input type="hidden"  id="ne" value="{{$recep->empresa_origen}}" >
                 <div class="col-lg-8"  >
 
                 <div class="small-box bg-danger text-center" >
@@ -203,7 +206,7 @@
         </div>
 
                    <script>
-                  
+
                     Swal.fire(document.getElementById('ne').value, {
                     timer: 3000,
                     title: document.getElementById('nv').value,
@@ -211,18 +214,18 @@
                     background: 'red',
                     showconfirmButton: false,
                   });
-                    
+
                       $(".sweet-alert").css('background-color', '#000');
                   </script>
 } @endif
                 @endforeach
-           
+
         </div>
 
 @if(is_null($recep))
-    
 
-   
+
+
                 <div class="container-fluid">
                      <div class="row">
                        <div class="card card-outline card-warning">
@@ -255,13 +258,13 @@
                         <td></td>
                         </tr>
                         @endforeach
-                                             
+
                         </tfoot>
                         </table>
                         </div>
 
-                     </div>   
- 
+                     </div>
+
 <div class="col-md-6 ">
 <div class="card card-success">
 <div class="card-header">
@@ -305,18 +308,18 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="staticBackdropLabel">Solicitar atención en recepción</h4>
- 
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                    </button> 
-                      
-                
-                     
+                    </button>
+
+
+
                 </div>
 
               <div class="modal-body">
  <div class="form-group">
-    
+
     <div id="aviso" class="" role="alert">
     <h6 id="message"></h6>
 </div>
@@ -329,7 +332,7 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
                              <select class="form-control" onchange=" BuscarColaborador(document.getElementById('id_dpto').value);document.getElementById('aviso').innerHTML='';document.getElementById('btnguardarPNModalModificar').disabled=false;"  id="id_dpto"        >
                                 <option value="">-Selecciona Departamento-</option>
                                     @foreach($datas as $dptos)
-                                            <option value="{{$dptos->id}}">                            
+                                            <option value="{{$dptos->id}}">
                                                  {{$dptos->dpto_nombre}}
                                             </option>
                                     @endforeach
@@ -344,19 +347,19 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
                             <label for="nombre_moneda">Origen/Empresa:</label>
                             <input type="text" class="form-control"   onclick="select();$('.alert').alert('close'); document.getElementById('btn-save').disabled=false;  " placeholder="EJ.: PRODUCTOR AGRICOLA"   onkeyup="javascript:this.value=this.value.toUpperCase();"  id="empresa">
                     </div>
- 
+
                          <input type="hidden" value="Otros" id="motivo">
-                         <input type="hidden" value="6" id="id_motivo">        
+                         <input type="hidden" value="6" id="id_motivo">
                         <input type="hidden" value="Default" id="nombre_colaborador">
                         <input type="hidden" value="1" id="id_colaborador">
                         <input type="hidden" value="1" id="id_colaborador_atencion">
                          <input type="hidden" name="sede_id" id="sede_id" value={{session()->get('sede_id')}}>
-      
+
                     <div class="form-group">
                           <label for="descripcion">Comentario del visitante <small>(opcional)</small>:</label>
                           <input type="text" class="form-control"   onclick="select(); document.getElementById('btn-save').disabled=false;" value="" placeholder="Descripcion de la visita." onkeyup="javascript:this.value=this.value.toUpperCase();" id="comentario_visitante">
                     </div>
-                      
+
                     <div class="modal-footer justify-content-between">
                     <button type="button" id="btn-salir" class="btn btn-default" href="index.php" onclick="limpiarCampos();$('.alert').alert('close');")  data-dismiss="modal">Cancelar</button>
                           <button type="button" onclick="createPost();" class="btn btn-primary" id="btn-create">Guardar</button>
@@ -364,16 +367,16 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
              </div>
             </div>
         </div>
- 
+
 </form>
         <!--Inicio Footer -->
-      
+
         <!-- Fin Footer -->
         <!-- Control Sidebar -->
-       
+
         <!-- /.control-sidebar -->
         <!--Inicio de ventana modal para login con más de un rol -->
- 
+
     </div>
        <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script>
     <!-- Bootstrap 4 -->
@@ -385,7 +388,7 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
     <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
   <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")}}"></script>
 
- 
+
  <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.html5.min.js")}}"></script>
  <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.print.min.js")}}"></script>
  <script src="{{asset("assets/$theme/plugins/datatables-buttons/js/buttons.colVis.min.js")}}"></script>
@@ -400,18 +403,18 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
     <script src="{{asset("assets/js/scripts.js")}}"></script>
     <script src="{{asset("assets/js/funciones.js")}}"></script>
    <script src="{{asset("assets/js/recep.js")}}"></script>
-  
+
  <script src="{{asset(mix("js/app.js"))}}"></script>
- 
- 
- 
- 
+
+
+
+
     <!-- Select2 -->
-   
 
 
-   
-      
+
+
+
     @yield("scripts")
 
    <script type="text/javascript">
@@ -439,7 +442,7 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
         },
         select: function (event, ui) {
            $('#nombre_visitante').val(ui.item.nombre_visitante);
-           $('#id_visitante').val(ui.item.value); 
+           $('#id_visitante').val(ui.item.value);
             $('#empresa').val(ui.item.empresa_origen);
            return false;
         }
@@ -460,7 +463,7 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
       "info": true,
       "autoWidth": false,
       "responsive": true,
-"language":{ 
+"language":{
     "decimal":        "",
     "emptyTable":     "Sin datos",
     "info":           "Mostrando _START_ hasta _END_ de _TOTAL_ registros",
@@ -478,7 +481,7 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
         "last":       "Ultimo",
         "next":       "Siguiente",
         "previous":   "Previo"
-    } 
+    }
     } ,
     }) ;
   });
