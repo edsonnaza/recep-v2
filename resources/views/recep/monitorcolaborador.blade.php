@@ -35,8 +35,9 @@
 <script src="{{asset("assets/$theme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
 <script src="{{asset("assets/$theme/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>
 <script src="{{asset("assets/$theme/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")}}"></script>
-
+<script src="{{asset("assets/pages/scripts/recep/recep-alert.js")}}" type="text/javascript"></script>
 @endsection
+
 
 
 
@@ -70,6 +71,49 @@
 }
 .iframePDF-xl{
     height: 100%;
+}
+
+
+
+:root {
+  --main-color: #ecf0f1;
+  --point-color: #555;
+  --size: 5px;
+}
+
+.loader {
+  background-color: var(--main-color);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  z-index: 100000;
+}
+
+.loader__element {
+  border-radius: 100%;
+  border: var(--size) solid var(--point-color);
+  margin: calc(var(--size)*2);
+}
+
+.loader__element:nth-child(1) {
+  animation: preloader .6s ease-in-out alternate infinite;
+}
+.loader__element:nth-child(2) {
+  animation: preloader .6s ease-in-out alternate .2s infinite;
+}
+
+.loader__element:nth-child(3) {
+  animation: preloader .6s ease-in-out alternate .4s infinite;
+}
+
+@keyframes preloader {
+  100% { transform: scale(2); }
 }
 </style>
 
@@ -159,20 +203,22 @@
 </nav>
         <!-- Fin Header -->
 
-        <div class="content-wrapper" >
+<div class="content-wrapper mb-2" >
             <!-- Content Header (Page header) -->
 
-            <section class="content-header">
 
-            </section>
-
+<br>
 
 <section class="content"  >
 
 
- <!--Call your modal-->
 
-   @foreach($recepEspera as $recep)
+
+
+<div class="row">
+
+<div class="col-md-12 justify-center ">
+        @foreach($recepEspera as $recep)
         @php
             $recepobj= new \app\Repositories\RecepClass();
             $time= $recepobj->waitTime($recep->created_at);
@@ -181,38 +227,38 @@
 
         @if($time<10)
 
-        <div id="cont" class="row justify-content-center "  >
+
 
                   <input type="hidden"  id="nv" value="{{$recep->nombre_visitante}}" >
                   <input type="hidden"  id="ne" value="{{$recep->empresa_origen}}" >
-                     <input type="hidden"  id="comentario_visitante" value="{{$recep->comentario_visitante}}" >
-                <div class="col-lg-8"  >
+                  <input type="hidden"  id="comentario_visitante" value="{{$recep->comentario_visitante}}" >
+            <div class="col-sm-12"  >
 
-                <div class="small-box bg-danger text-center" >
-                <div class="inner">
-                <h1 class="animate__animated animate__headShake animate__repeat-2">{{$recep->nombre_visitante}}</h1>
-                <p > {{$recep->comentario_visitante}}</p>
-                <i class="fa fa-building"></i> Empresa: <strong> {{$recep->empresa_origen}}  </strong>
-                <p><i class="fa fa-clock"></i> Tiempo en espera:
-                <span  class="pull-right text-description small">
-                {{ \Carbon\Carbon::parse($recep->created_at)->diffForHumans();}}. </span></p>
+                <div class="small-box bg-danger text-center animate__animated animate__headShake animate__infinite	infinite " >
+
+                    <div class="inner">
+                        <h1 class="animate__animated animate__headShake animate__repeat-5">{{$recep->nombre_visitante}}</h1>
+                        <p > {{$recep->comentario_visitante}}</p>
+                        <i class="fa fa-building"></i> Empresa: <strong> {{$recep->empresa_origen}}  </strong>
+                        <p><i class="fa fa-clock"></i> Tiempo en espera:
+                        <span  class="pull-right text-description small">
+                        {{ \Carbon\Carbon::parse($recep->created_at)->diffForHumans();}}. </span></p>
+                        </div>
+                            <input type="hidden" id="waittime" value=" {{ \Carbon\Carbon::parse($recep->created_at)->diffForHumans();}}">
+                            <div class="icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        <a href="#" class="small-box-footer">
+                        Atender <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                        </div>
+                    </div>
                 </div>
-                    <input type="hidden" id="waittime" value=" {{ \Carbon\Carbon::parse($recep->created_at)->diffForHumans();}}">
-                <div class="icon">
-                <i class="fas fa-user-plus"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                Atender <i class="fas fa-arrow-circle-right"></i>
-                </a>
-                </div>
-        </div>
-
-
-
-                    <script>
-                        let timerInterval
+            </div>
+            <script>
+                 let timerInterval
                         Swal.fire({
-                        title: '<strong> <h1 style="color:white !important; font-size:50;" class="animate__animated animate__headShake animate__repeat-2">'+ document.getElementById('nv').value+'</h1></strong> <br> <em><h4 style="color:white">'+ document.getElementById('comentario_visitante').value+ "</h4> </em>",
+                        title: '<strong> <h1 style="color:white !important; font-size:50;" class="animate__animated animate__headShake animate__infinite infinite">'+ document.getElementById('nv').value+'</h1></strong> <br> <em><h4 style="color:white">'+ document.getElementById('comentario_visitante').value+ "</h4> </em>",
                         html: '<h2 style="color:white"><i class="fa fa-building"></i> Empresa: ' + document.getElementById('ne').value + '</h2>',
                         footer: '<h3 style="color:white"><span  class="pull-right text-description small"><i class="fa fa-clock"></i>'+ ' '+ document.getElementById('waittime').value + '</span></h3>',
                         position: 'center',
@@ -237,19 +283,12 @@
                             console.log('I was closed by the timer')
                         }
                         })
-                    </script>
-@endif
-
-@endforeach
-
-        </div>
-
-@if(is_null($recepAtendidos))
+            </script>
+        @endif
 
 
-
-                <div class="container-fluid">
-                     <div class="row">
+        @endforeach
+                     <div class="col-md-12">
                        <div class="card card-outline card-warning">
                         <div class="card-header">
                         <h3 class="card-title">VISTAS RECIENTES EN RECEPCIÓN</h3>
@@ -269,15 +308,43 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($recepAtendidos as $recep)
+                        @foreach($recepAll as $recepall)
+                             @php
+                                $situacion=$recepall->situacion;
+                             @endphp
                         <tr>
-                        <td>{{$recep->id}}</td>
-                        <td>{{$recep->nombre_visitante}}</td>
-                        <td>{{$recep->empresa_origen}}</td>
-                        <td>{{$recep->comentario_visitante}}</td>
-                        <td>{{$recep->id_dpto}}</td>
-                        <td>{{$recep->situacion}}</td>
-                        <td></td>
+                        <td>{{$recepall->id}}</td>
+                        <td><strong>{{$recepall->nombre_visitante}}</strong></td>
+                        <td>{{$recepall->empresa_origen}}</td>
+                        <td>{{$recepall->comentario_visitante}}</td>
+                        <td>{{$recepall->departamentos->dpto_nombre}}</td>
+                        <td><strong>
+                             <h6 class="animate__animated animate__headShake animate__infinite infinite span span-success">{{$recepall->situacion}}
+                            </strong>
+                             </h6>
+
+
+                            @if ($situacion=='EN ESPERA')
+                                 <span class="badge badge-warning">
+                               {{\Carbon\Carbon::parse($recepall->created_at)->diffForHumans() }}
+                                 </span>
+                            @endif
+
+
+
+                        </td>
+
+                        <td>
+
+                            @if ($situacion=='ATENDIDOS')
+                                <button type="button" class="btn btn-primary" disabled="true">Atender</button>
+
+                            @endif
+                            @if ($situacion=='EN ESPERA')
+                                 <button type="button" class="btn btn-primary">Atender</button>
+                            @endif
+
+                        </td>
                         </tr>
                         @endforeach
 
@@ -286,38 +353,14 @@
                         </div>
 
                      </div>
+        </div>
 
-<div class="col-md-6 ">
-<div class="card card-success">
-<div class="card-header">
-<h3 class="card-title">Visitas Recientes</h3>
-<div class="card-tools">
-<button type="button" class="btn btn-tool" data-card-widget="collapse">
-<i class="fas fa-minus"></i>
-</button>
-<button type="button" class="btn btn-tool" data-card-widget="remove">
-<i class="fas fa-times"></i>
-</button>
- </div>
-</div>
-<div
-<div class="card-body p-0">
-<ul class="products-list product-list-in-card pl-2 pr-2">
-<li class="item">
-<div class="product-img">
-<img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-</div>
-<div class="product-info">
-<a href="javascript:void(0)" class="product-title">Samsung TV
-<span class="badge badge-warning float-right">$1800</span></a>
-<span class="product-description">
-Samsung 32" 1080p 60Hz LED Smart HDTV.
-</span>
-</div>
+ <!--Call your modal-->
+
 </div>
 </section>
-@endif
-        </div>
+
+</div>
 
 
 <!--Inicio Footer -->
@@ -428,7 +471,7 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
 
  <script src="{{asset(mix("js/app.js"))}}"></script>
 
-
+<script src="{{asset("assets/pages/scripts/recep-alert.js")}}" type="text/javascript"></script>
 
 
     <!-- Select2 -->
@@ -510,7 +553,17 @@ Samsung 32" 1080p 60Hz LED Smart HDTV.
 </script>
 <script>
   $("#demo01").animatedModal();
+
+
 </script>
+
+ <script type="text/javascript">
+        setTimeout(function () {
+
+            // Adding the class dynamically
+           location.reload();
+        }, 10000);
+    </script>
 </body>
 
 </html>

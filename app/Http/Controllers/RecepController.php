@@ -218,7 +218,8 @@ class RecepController extends Controller
            $datas = $this->receps->get('api/department');
            $recepEspera= $this->receps->get('api/waiting');
            $recepAtendidos= $this->receps->get('api/attended');
-           return view('recep.monitorcolaborador',compact('datas','recepEspera','recepAtendidos'));
+           $recepAll= $this->receps->get('api/all');
+           return view('recep.monitorcolaborador',compact('datas','recepEspera','recepAtendidos','recepAll'));
 
 
     }

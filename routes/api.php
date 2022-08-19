@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
+use App\Models\Recep;
+use App\Models\Motivo;
+use App\Models\ComprasFI;
 use App\Models\Productos;
 use App\Models\ComprasFIDET;
-use App\Models\ComprasFI;
-use App\Models\Motivo;
-use App\Models\Recep;
 use App\Models\Departamento;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -37,7 +38,7 @@ Route::get('waiting', function (Request $request) {
 });
 
 Route::get('attended', function (Request $request) {
-    $attended = Recep::where('eliminado','like','NO') ->Where('situacion','=','ATENDIDO')->get();
+    $attended = Recep::where('eliminado','like','NO')->with('Departamentos')->Where('situacion','=','ATENDIDO')->get();
     return response()->json($attended);
 
 });
@@ -45,6 +46,12 @@ Route::get('attended', function (Request $request) {
 Route::get('department', function (Request $request) {
     $department =Departamento::where('activo','=','1')->orderBy('orden','ASC')->get();
     return response()->json($department);
+
+});
+
+Route::get('all', function (Request $request) {
+    $all =Recep::where('eliminado','like','NO')->whereDate('created_at',Carbon::today())->with('Departamentos')->orderBy('created_at','DESC')->get();
+    return response()->json($all);
 
 });
 
