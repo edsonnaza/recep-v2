@@ -244,7 +244,7 @@
 
         </div>
 
-@if(is_null($recep))
+@if(is_null($recepAtendidos))
 
 
 
